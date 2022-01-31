@@ -1,6 +1,6 @@
 namespace BuildingBlocks.Exception;
 
-public class AppException : System.Exception
+public class AppException : CustomException
 {
     public AppException(string message, string code = default!) : base(message)
     {

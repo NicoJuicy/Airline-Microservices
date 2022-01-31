@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace BuildingBlocks.Exception
 {
-    public class InternalServerException : ApplicationException
+    public class InternalServerException : CustomException
     {
         public InternalServerException() : base() { }
 

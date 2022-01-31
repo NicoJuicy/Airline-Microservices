@@ -16,8 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Seed" />
-    <Folder Include="Flight" />
+    <Folder Include="Flight\Exceptions" />
   </ItemGroup>
 
 </Project>

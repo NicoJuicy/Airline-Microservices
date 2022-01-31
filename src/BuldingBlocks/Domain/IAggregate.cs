@@ -8,6 +8,8 @@ namespace BuildingBlocks.Domain
 
     public interface IAggregate<TId>
     {
+        IEnumerable<IDomainEvent> Events { get; }
+        void ClearEvents();
         public TId Id { get;}
     }
 }

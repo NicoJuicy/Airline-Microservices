@@ -6,14 +6,24 @@ public class CustomException: System.Exception
 {
     public CustomException(
         string message,
-        List<string> errors = default,
         HttpStatusCode statusCode = HttpStatusCode.InternalServerError) : base(message)
     {
-        ErrorMessages = errors;
         StatusCode = statusCode;
     }
-
-    public List<string> ErrorMessages { get; }
-
+    
+    public CustomException(
+        string message,
+        System.Exception innerException,
+        HttpStatusCode statusCode = HttpStatusCode.InternalServerError) : base(message, innerException)
+    {
+        StatusCode = statusCode;
+    }
+    
+    public CustomException(
+        HttpStatusCode statusCode = HttpStatusCode.InternalServerError) : base()
+    {
+        StatusCode = statusCode;
+    }
+    
     public HttpStatusCode StatusCode { get; }
 }

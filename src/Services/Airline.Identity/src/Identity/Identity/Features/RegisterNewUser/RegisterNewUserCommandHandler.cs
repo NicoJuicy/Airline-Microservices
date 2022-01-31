@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Identity.Identity.Features.RegisterNewUser;
 
-public class RegisterNewUserCommandHandler: IRequestHandler<RegisterNewUserCommand, RegisterNewUserDto>
+public class RegisterNewUserCommandHandler: IRequestHandler<RegisterNewUserCommand, RegisterNewUserResponseDto>
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
@@ -19,7 +19,7 @@ public class RegisterNewUserCommandHandler: IRequestHandler<RegisterNewUserComma
         _userManager = userManager;
     }
 
-    public async Task<RegisterNewUserDto> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
+    public async Task<RegisterNewUserResponseDto> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
     {
         
         var applicationUser = new ApplicationUser
@@ -39,7 +39,7 @@ public class RegisterNewUserCommandHandler: IRequestHandler<RegisterNewUserComma
         if (roleResult.Succeeded == false)
             throw new RegisterIdentityUserException(string.Join(',', roleResult.Errors.Select(e => e.Description)));
 
-        return new RegisterNewUserDto(applicationUser.Id, applicationUser.FirstName, applicationUser.LastName,
+        return new RegisterNewUserResponseDto(applicationUser.Id, applicationUser.FirstName, applicationUser.LastName,
             applicationUser.UserName);
     }
 }

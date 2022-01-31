@@ -21,7 +21,7 @@ builder.Services.AddCustomVersioning();
 builder.Services.AddMediatR();
 
 builder.Services.AddValidatorsFromAssembly(typeof(IdentityRoot).Assembly);
-builder.Services.AddProblemDetails();
+builder.Services.AddCustomProblemDetails();
 
 builder.Services.AddDbContext<IdentityContext>(option =>
 {

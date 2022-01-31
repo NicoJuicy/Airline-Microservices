@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BuildingBlocks.Web
 {
+    [Route(BaseApiPath)]
     [ApiController]
-    public abstract class BaseController : Controller
+    [ApiVersion("1.0")]
+    public abstract class BaseController : ControllerBase
     {
         protected const string BaseApiPath = "api/v{version:apiVersion}";
 

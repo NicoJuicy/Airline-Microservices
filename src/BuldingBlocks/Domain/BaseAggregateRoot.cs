@@ -1,7 +1,11 @@
-﻿namespace BuildingBlocks.Domain
+﻿using System.Collections.Immutable;
+
+namespace BuildingBlocks.Domain
 {
     public abstract class BaseAggregateRoot<TKey> : IAggregate<TKey>
     {
+        private readonly Queue<IDomainEvent> _events = new();
+
         public BaseAggregateRoot()
         {
         }
@@ -15,6 +19,22 @@
 
         public DateTime LastModified { get; protected set; }
         public bool IsDeleted { get; protected set; }
+
+        public IEnumerable<IDomainEvent> Events => _events.ToImmutableArray();
+
+        protected void AddEvent(IDomainEvent @event)
+        {
+            _events.Enqueue(@event);
+
+            // this.Apply(@event);
+
+            // this.Version++;
+        }
+
+        public void ClearEvents()
+        {
+            _events.Clear();
+        }
 
         public TKey Id { get; protected set; }
 
