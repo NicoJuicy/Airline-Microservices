@@ -12,7 +12,8 @@ namespace BuildingBlocks.Domain
         private readonly IMessageBroker _messageBroker;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public EventProcessor(IServiceScopeFactory serviceScopeFactory, IEventMapper eventMapper, IMessageBroker messageBroker,
+        public EventProcessor(IServiceScopeFactory serviceScopeFactory, IEventMapper eventMapper,
+            IMessageBroker messageBroker,
             ILogger<IEventProcessor> logger, IMediator mediator)
         {
             _serviceScopeFactory = serviceScopeFactory;
@@ -36,6 +37,10 @@ namespace BuildingBlocks.Domain
 
         private async Task<List<IEvent>> HandleDomainEventsAsync(IEnumerable<IDomainEvent> events)
         {
+            var wrappedIntegrationEvents = GetWrappedIntegrationEvents(events)?.ToList();
+            if (wrappedIntegrationEvents?.Count > 0)
+                return wrappedIntegrationEvents;
+
             var integrationEvents = new List<IEvent>();
             using var scope = _serviceScopeFactory.CreateScope();
             foreach (var @event in events)
@@ -52,6 +57,21 @@ namespace BuildingBlocks.Domain
             }
 
             return integrationEvents;
+        }
+
+        public IEnumerable<IEvent> GetWrappedIntegrationEvents(IEnumerable<IDomainEvent> domainEvents)
+        {
+            foreach (IDomainEvent domainEvent in domainEvents.Where(x =>
+                         x is IHaveIntegrationEvent))
+            {
+                Type genericType = typeof(IntegrationEventWrapper<>)
+                    .MakeGenericType(domainEvent.GetType());
+
+                IEvent domainNotificationEvent = (IEvent) Activator
+                    .CreateInstance(genericType, domainEvent);
+
+                yield return domainNotificationEvent;
+            }
         }
     }
 }

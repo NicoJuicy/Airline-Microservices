@@ -63,6 +63,12 @@
     <PackageReference Include="DotNetCore.CAP.MongoDB" Version="6.0.0" />
     <PackageReference Include="DotNetCore.CAP.SqlServer" Version="6.0.0" />
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="6.0.0" />
+
+    <PackageReference Include="MassTransit" Version="7.1.8" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.1.8" />
+    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.1.8" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.8" />
+    
   </ItemGroup>
 
 </Project>

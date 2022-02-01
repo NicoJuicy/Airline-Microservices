@@ -1,3 +1,4 @@
+
 using DotNetCore.CAP;
 
 namespace BuildingBlocks.Domain;
@@ -5,7 +6,6 @@ namespace BuildingBlocks.Domain;
 public class MessageBroker : IMessageBroker
 {
     private readonly ICapPublisher _capPublisher;
-
     public MessageBroker(ICapPublisher capPublisher)
     {
         _capPublisher = capPublisher;

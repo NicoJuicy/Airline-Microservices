@@ -4,6 +4,7 @@ using BuildingBlocks.Domain;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
+using DotNetCore.CAP;
 using DotNetCore.CAP.Messages;
 using Flight;
 using Flight.Extensions;
@@ -35,6 +36,9 @@ builder.Services.AddDbContext<FlightDbContext>(option =>
 {
     option.UseSqlServer(configuration.GetConnectionString("FlightConnection"));
 });
+
+// Sample subscriber
+builder.Services.AddTransient<ICapSubscribe,TestSubscriber>();
 
 builder.Services.AddCap(x =>
 {
