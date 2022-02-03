@@ -1,12 +1,10 @@
-using System;
 using DotNetCore.CAP;
-using Flight.Flight.Features.CreateFlight;
 
-namespace Flight;
+namespace Identity.Api.Consumers;
 
 public class TestSubscriber : ICapSubscribe
 {
-    [CapSubscribe("FlightCreated")]
+    [CapSubscribe(nameof(FlightCreated))]
     public void CheckReceivedMessage(FlightCreated flight)
     {
         Console.WriteLine($"{flight} Received!");

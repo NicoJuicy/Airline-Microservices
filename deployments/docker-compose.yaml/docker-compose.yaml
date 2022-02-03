@@ -1,17 +1,35 @@
 version: "3.7"
 services:
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:management
     container_name: 'rabbitmq'
     ports:
         - 5672:5672
         - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        - rabbitmqdata/:/var/lib/rabbitmq
+    hostname: rabbitmq    
     networks:
         - airline
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    # environment:
+     # - MONGO_INITDB_ROOT_USERNAME=root
+     # - MONGO_INITDB_ROOT_PASSWORD=secret
+    networks:
+      - airline
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db 
 
 networks:
   airline:
     name: airline-network
+
+volumes:
+  rabbitmqdata:
+  mongo: 
+   driver: local

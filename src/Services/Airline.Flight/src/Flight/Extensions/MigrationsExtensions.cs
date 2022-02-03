@@ -17,7 +17,7 @@ public static class MigrationsExtensions
 
         return app;
     }
-    
+
     private static void MigrateDatabase(IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();

@@ -1,3 +1,4 @@
+using BuildingBlocks.Domain;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
@@ -5,6 +6,7 @@ using FluentValidation;
 using Hellang.Middleware.ProblemDetails;
 using Identity;
 using Identity.Extensions;
+using Identity.Infrastructure;
 using Identity.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
@@ -29,8 +31,13 @@ builder.Services.AddDbContext<IdentityContext>(option =>
 });
 
 builder.Services.AddScoped<IDataSeeder, IdentityDataSeeder>();
+builder.Services.AddScoped<IMessageBroker, MessageBroker>();
+builder.Services.AddScoped<IEventMapper, EventMapper>();
+builder.Services.AddScoped<IEventProcessor, EventProcessor>();
 
 builder.Services.AddIdentityServer(env);
+
+builder.Services.AddCustomCap();
 
 var app = builder.Build();
 
