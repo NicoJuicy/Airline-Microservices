@@ -1,5 +1,7 @@
 using BuildingBlocks.Domain;
+using MassTransit.Topology;
 
-namespace Identity.Api.Consumers;
+namespace Contract.Event;
 
+[EntityName("flight-created")]
 public record FlightCreated(string FlightNumber) : IEvent;

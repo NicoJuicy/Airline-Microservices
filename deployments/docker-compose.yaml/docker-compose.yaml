@@ -1,35 +1,10 @@
-version: "3.7"
+version: "3.8"
 services:
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: 'rabbitmq'
-    ports:
-        - 5672:5672
-        - 15672:15672
-    volumes:
-        - rabbitmqdata/:/var/lib/rabbitmq
-    hostname: rabbitmq    
-    networks:
-        - airline
-  mongo:
-    image: mongo
-    container_name: mongo
-    restart: unless-stopped
-    # environment:
-     # - MONGO_INITDB_ROOT_USERNAME=root
-     # - MONGO_INITDB_ROOT_PASSWORD=secret
-    networks:
-      - airline
-    ports:
-      - 27017:27017
-    volumes:
-      - mongo:/data/db 
-
-networks:
-  airline:
-    name: airline-network
-
-volumes:
-  rabbitmqdata:
-  mongo: 
-   driver: local
+  rabbitmq3:
+        container_name: "rabbitmq"
+        image: rabbitmq:3.8-management-alpine
+        ports:
+            # AMQP protocol port
+            - '5672:5672'
+            # HTTP management UI
+            - '15672:15672'

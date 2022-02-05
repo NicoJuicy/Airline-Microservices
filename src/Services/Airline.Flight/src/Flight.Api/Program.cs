@@ -1,3 +1,4 @@
+using BuildingBlocks.Cap;
 using BuildingBlocks.Domain;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
@@ -15,8 +16,6 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-// Add services to the container.
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCustomSwagger(builder.Configuration, typeof(FlightRoot).Assembly);
 builder.Services.AddCustomVersioning();
@@ -32,12 +31,12 @@ builder.Services.AddDbContext<FlightDbContext>(option =>
     option.UseSqlServer(configuration.GetConnectionString("FlightConnection"));
 });
 
-builder.Services.AddCustomCap();
-
 builder.Services.AddScoped<IDataSeeder, FlightDataSeeder>();
-builder.Services.AddScoped<IMessageBroker, MessageBroker>();
-builder.Services.AddScoped<IEventMapper, EventMapper>();
-builder.Services.AddScoped<IEventProcessor, EventProcessor>();
+builder.Services.AddTransient<IEventMapper, EventMapper>();
+builder.Services.AddTransient<IMessageBroker, MessageBroker>();
+builder.Services.AddTransient<IEventProcessor, EventProcessor>();
+
+builder.Services.AddCustomMassTransit();
 
 var app = builder.Build();
 

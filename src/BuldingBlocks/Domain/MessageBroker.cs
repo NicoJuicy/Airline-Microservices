@@ -1,21 +1,19 @@
-
 using DotNetCore.CAP;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace BuildingBlocks.Domain;
 
 public class MessageBroker : IMessageBroker
 {
-    private readonly ICapPublisher _capPublisher;
+    private readonly IPublishEndpoint _publishEndpoint;
     private readonly ILogger<MessageBroker> _logger;
 
-    public MessageBroker(ICapPublisher capPublisher, ILogger<MessageBroker> logger)
+    public MessageBroker(ILogger<MessageBroker> logger, IPublishEndpoint publishEndpoint)
     {
-        _capPublisher = capPublisher;
+        _publishEndpoint = publishEndpoint;
         _logger = logger;
     }
-
-    public Task PublishAsync(params IEvent[] events) => PublishAsync(events?.AsEnumerable());
 
     public async Task PublishAsync(IEnumerable<IEvent> events)
     {
@@ -30,9 +28,8 @@ public class MessageBroker : IMessageBroker
             {
                 continue;
             }
-
-            await _capPublisher.PublishAsync(@event.GetType().Name, @event);
-            _logger.LogInformation($"Published event{@event.GetType().Name}");
+            await _publishEndpoint.Publish((dynamic) @event);
+            _logger.LogInformation($"Published event :{@event}");
         }
     }
 }
