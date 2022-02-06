@@ -3,6 +3,7 @@ using BuildingBlocks.Domain;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
+using Figgle;
 using FluentValidation;
 using Hellang.Middleware.ProblemDetails;
 using Identity;
@@ -15,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var env = builder.Environment;
+
+Console.WriteLine(FiggleFonts.Standard.Render(configuration["app"]));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCustomSwagger(builder.Configuration, typeof(IdentityRoot).Assembly);

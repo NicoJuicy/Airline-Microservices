@@ -15,7 +15,7 @@ public class FlightCreatedConsumer : IConsumer<FlightCreated>
     public Task Consume(ConsumeContext<FlightCreated> context)
     {
         _logger.LogInformation(context.Message.ToString());
-        _logger.LogInformation("We recived a flight created event");
+        Console.WriteLine("We recived a flight created event");
         return Task.CompletedTask;
     }
 }

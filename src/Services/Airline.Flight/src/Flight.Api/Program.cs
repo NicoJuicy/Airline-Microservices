@@ -3,6 +3,7 @@ using BuildingBlocks.Domain;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
+using Figgle;
 using Flight;
 using Flight.Extensions;
 using Flight.Infrastructure;
@@ -15,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+
+Console.WriteLine(FiggleFonts.Standard.Render(configuration["app"]));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCustomSwagger(builder.Configuration, typeof(FlightRoot).Assembly);
