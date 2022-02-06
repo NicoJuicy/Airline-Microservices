@@ -4,6 +4,7 @@ using GreenPipes;
 using MassTransit;
 using MassTransit.Definition;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
 
 namespace BuildingBlocks.Cap;
 
@@ -23,10 +24,13 @@ public static class Extensions
                         h.Username(rabbitMqOptions.UserName);
                         h.Password(rabbitMqOptions.Password);
                     });
-                    configurator.ConfigureEndpoints(context,
-                        new KebabCaseEndpointNameFormatter(rabbitMqOptions.ExchangeName, false));
-                    configurator.UseMessageRetry(retryConfigurator =>
-                        retryConfigurator.Interval(3, TimeSpan.FromSeconds(5.0)));
+
+                    configurator.ReceiveEndpoint(rabbitMqOptions.ExchangeName, ep =>
+                    {
+                        ep.ExchangeType = ExchangeType.Topic;
+                        ep.UseMessageRetry(retryConfigurator => retryConfigurator.Interval(3, TimeSpan.FromSeconds(5.0)));
+                        ep.ConfigureConsumers(context);
+                    });
                 });
         });
         services.AddMassTransitHostedService();
