@@ -30,6 +30,14 @@ namespace BuildingBlocks.Utils
                     }
                 });
         }
+        
+        public static bool IsActionDelegate(this Type sourceType)
+        {
+            if (sourceType.IsSubclassOf(typeof(MulticastDelegate)) &&
+                sourceType.GetMethod("Invoke").ReturnType == typeof(void))
+                return true;
+            return false;
+        }
         private static string PrettyPrintRecursive(Type type, int depth)
         {
             if (depth > 3)

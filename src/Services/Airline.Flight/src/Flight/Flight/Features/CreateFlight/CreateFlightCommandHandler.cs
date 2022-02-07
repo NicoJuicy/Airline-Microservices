@@ -2,8 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using BuildingBlocks.Domain;
-using Contract.Event;
-using Flight.Core.Events;
 using Flight.Flight.Dtos;
 using Flight.Flight.Exceptions;
 using Flight.Infrastructure.Data;
@@ -15,8 +13,8 @@ namespace Flight.Flight.Features.CreateFlight;
 public class CreateFlightCommandHandler : IRequestHandler<CreateFlightCommand, CreateFlightResponseDto>
 {
     private readonly IEventProcessor _eventProcessor;
-    private readonly IMapper _mapper;
     private readonly FlightDbContext _flightDbContext;
+    private readonly IMapper _mapper;
 
     public CreateFlightCommandHandler(IEventProcessor eventProcessor, IMapper mapper, FlightDbContext flightDbContext)
     {

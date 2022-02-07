@@ -1,5 +1,5 @@
-using BuildingBlocks.Cap;
 using BuildingBlocks.Domain;
+using BuildingBlocks.MassTransit;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
@@ -43,7 +43,6 @@ builder.Services.AddCustomMassTransit();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     var provider = app.Services.GetService<IApiVersionDescriptionProvider>();

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using BuildingBlocks.Domain;
-using Contract.Event;
+using BuildingBlocks.MassTransit;
+using Contracts.Event;
 using Flight.Core.Events;
+using Flight.Flight.Features.CreateFlight;
 
 namespace Flight.Infrastructure;
 

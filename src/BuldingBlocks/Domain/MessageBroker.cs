@@ -1,4 +1,3 @@
-using DotNetCore.CAP;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 

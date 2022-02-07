@@ -1,5 +1,4 @@
 using BuildingBlocks.Domain;
-using MassTransit.Topology;
 
-namespace Contract.Event;
+namespace Contracts.Event;
 public record FlightCreated(string FlightNumber) : IEvent;
