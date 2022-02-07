@@ -63,6 +63,22 @@
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.1.8" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.8" />
 
+    <PackageReference Include="OpenTelemetry" Version="1.2.0-rc2" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.2.0-rc2" />
+    <PackageReference Include="OpenTelemetry.Exporter.Zipkin" Version="1.2.0-rc2" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.0.0-rc9" />
+    <PackageReference Include="DotNetCore.CAP" Version="6.0.0" />
+    <PackageReference Include="DotNetCore.CAP.Dashboard" Version="6.0.0" />
+    <PackageReference Include="DotNetCore.CAP.MongoDB" Version="6.0.0" />
+    <PackageReference Include="DotNetCore.CAP.OpenTelemetry" Version="6.0.0" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="6.0.0" />
+    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="6.0.0" />
+
+
+
   </ItemGroup>
 
 </Project>
