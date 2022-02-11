@@ -7,9 +7,8 @@ using Figgle;
 using FluentValidation;
 using Hellang.Middleware.ProblemDetails;
 using Identity;
+using Identity.Data;
 using Identity.Extensions;
-using Identity.Infrastructure;
-using Identity.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 

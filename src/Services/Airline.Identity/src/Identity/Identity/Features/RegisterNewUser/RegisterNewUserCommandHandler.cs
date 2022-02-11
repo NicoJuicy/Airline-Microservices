@@ -1,10 +1,9 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Identity.Core;
-using Identity.Core.Models;
 using Identity.Identity.Dtos;
 using Identity.Identity.Exceptions;
+using Identity.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

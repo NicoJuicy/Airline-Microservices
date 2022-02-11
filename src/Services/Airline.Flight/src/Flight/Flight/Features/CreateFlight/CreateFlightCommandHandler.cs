@@ -2,9 +2,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using BuildingBlocks.Domain;
+using Flight.Data;
 using Flight.Flight.Dtos;
 using Flight.Flight.Exceptions;
-using Flight.Infrastructure.Data;
+using Flight.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,12 +29,12 @@ public class CreateFlightCommandHandler : IRequestHandler<CreateFlightCommand, C
         var flight = await _flightDbContext.Flights.SingleOrDefaultAsync(x => x.FlightNumber == command.FlightNumber,
             cancellationToken);
 
-        if (flight != null)
+        if (flight is not null)
             throw new FlightAlreadyExistException();
 
-        var flightEntity = Core.Models.Flight.Create(command.FlightNumber, command.AircraftId, command.ArriveAirportId,
-            command.DepartureDate, command.ArriveDate,
-            command.ArriveAirportId, command.DurationMinutes, command.FlightDate, command.Status, command.Price);
+        var flightEntity = Models.Flight.Create(command.FlightNumber, command.AircraftId,
+            command.ArriveAirportId, command.DepartureDate,
+            command.ArriveDate, command.ArriveAirportId, command.DurationMinutes, command.FlightDate, FlightStatus.Completed, command.Price);
 
         var newFlight = await _flightDbContext.Flights.AddAsync(flightEntity, cancellationToken);
 

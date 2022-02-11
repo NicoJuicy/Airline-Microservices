@@ -1,4 +1,4 @@
-using Flight.Core.Models;
+using Flight.Models;
 using FluentValidation;
 
 namespace Flight.Flight.Features.CreateFlight;

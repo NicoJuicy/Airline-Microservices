@@ -6,7 +6,7 @@ namespace Flight.Extensions;
 
 public static class MediatRExtensions
 {
-    public static IServiceCollection AddMediatR(this IServiceCollection services)
+    public static IServiceCollection AddCustomMediatR(this IServiceCollection services)
     {
         services.AddMediatR(typeof(FlightRoot).Assembly);
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

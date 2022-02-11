@@ -1,4 +1,4 @@
-using MassTransit.Topology;
+using MassTransit;
 using MediatR;
 
 namespace BuildingBlocks.Domain;

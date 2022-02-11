@@ -12,9 +12,8 @@ namespace Flight.Flight.Features.CreateFlight;
 public class CreateFlightEndpoint: BaseController
 {
     [HttpPost(nameof(CreateFlight))]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [SwaggerOperation(Summary = "Create new flight", Description = "Create new flight")]
     public async Task<ActionResult> CreateFlight([FromBody] CreateFlightCommand command, CancellationToken cancellationToken)
     {

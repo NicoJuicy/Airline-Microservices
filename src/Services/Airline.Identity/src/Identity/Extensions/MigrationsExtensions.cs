@@ -1,5 +1,6 @@
 using System;
 using BuildingBlocks.Persistence;
+using Identity.Data;
 using Identity.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;

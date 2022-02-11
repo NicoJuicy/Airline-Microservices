@@ -15,7 +15,7 @@ public static class SnowFlakIdGenerator
         Guard.Against.NegativeOrZero(generatorId, nameof(generatorId));
 
         // Let's say we take jan 17st 2022 as our epoch
-        var epoch = new DateTime(2022, 1, 17, 0, 0, 0, DateTimeKind.Local);
+        var epoch = new DateTime(2022, 1, 1, 0, 0, 0, DateTimeKind.Local);
 
         // Create an ID with 45 bits for timestamp, 2 for generator-id
         // and 16 for sequence
@@ -29,8 +29,5 @@ public static class SnowFlakIdGenerator
         _generator = new IdGenerator(0, options);
     }
 
-    public static long NewId()
-    {
-        return _generator.CreateId();
-    }
+    public static long NewId() => _generator.CreateId();
 }

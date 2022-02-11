@@ -1,7 +1,6 @@
 using System;
 using BuildingBlocks.Persistence;
 using Flight.Data;
-using Flight.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

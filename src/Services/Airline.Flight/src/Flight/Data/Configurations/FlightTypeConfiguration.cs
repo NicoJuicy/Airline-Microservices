@@ -1,0 +1,27 @@
+using Flight.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Flight.Data.Configurations;
+
+public class FlightTypeConfiguration: IEntityTypeConfiguration<Models.Flight>
+{
+    public void Configure(EntityTypeBuilder<Models.Flight> builder)
+    {
+        builder.ToTable("Flight", "dbo");
+
+        builder.HasKey(r => r.Id);
+        builder.Property(r => r.Id).ValueGeneratedNever();
+
+        builder
+            .HasOne<Aircraft>()
+            .WithMany()
+            .HasForeignKey(p => p.AircraftId);
+        
+        builder
+            .HasOne<Airport>()
+            .WithMany()
+            .HasForeignKey(d => d.DepartureAirportId)
+            .HasForeignKey(a => a.ArriveAirportId);
+    }
+}

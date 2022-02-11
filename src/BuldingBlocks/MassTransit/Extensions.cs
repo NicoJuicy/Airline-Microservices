@@ -55,10 +55,9 @@ public static class Extensions
                         });
                 }
             });
+            
         });
-
-        services.AddMassTransitHostedService();
-
+        
         return services;
     }
 }
