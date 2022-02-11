@@ -8,6 +8,6 @@ public class FlightMappings : Profile
 {
     public FlightMappings()
     {
-        CreateMap<Models.Flight, CreateFlightResponseDto>();
+        CreateMap<Models.Flight, FlightResponseDto>();
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Flight.Flight.Features.CreateFlight;
 
-public class CreateFlightCommandHandler : IRequestHandler<CreateFlightCommand, CreateFlightResponseDto>
+public class CreateFlightCommandHandler : IRequestHandler<CreateFlightCommand, FlightResponseDto>
 {
     private readonly IEventProcessor _eventProcessor;
     private readonly FlightDbContext _flightDbContext;
@@ -24,7 +24,7 @@ public class CreateFlightCommandHandler : IRequestHandler<CreateFlightCommand, C
         _flightDbContext = flightDbContext;
     }
 
-    public async Task<CreateFlightResponseDto> Handle(CreateFlightCommand command, CancellationToken cancellationToken)
+    public async Task<FlightResponseDto> Handle(CreateFlightCommand command, CancellationToken cancellationToken)
     {
         var flight = await _flightDbContext.Flights.SingleOrDefaultAsync(x => x.FlightNumber == command.FlightNumber,
             cancellationToken);
@@ -42,6 +42,6 @@ public class CreateFlightCommandHandler : IRequestHandler<CreateFlightCommand, C
 
         await _flightDbContext.SaveChangesAsync(cancellationToken);
 
-        return _mapper.Map<CreateFlightResponseDto>(newFlight.Entity);
+        return _mapper.Map<FlightResponseDto>(newFlight.Entity);
     }
 }

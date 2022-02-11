@@ -7,6 +7,6 @@ public class ReservationMappings: Profile
 {
     public ReservationMappings()
     {
-        CreateMap<Models.Passenger, CreatePassengerResponseDto>();
+        CreateMap<Models.Passenger, PassengerResponseDto>();
     }
 }

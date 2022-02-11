@@ -1,19 +1,25 @@
 using BuildingBlocks.Domain;
+using BuildingBlocks.IdsGenerator;
 using Reservation.Models.ValueObjects;
 
 namespace Reservation.Models;
 
 public class Reservation: BaseAggregateRoot<long>
-{ 
-    public Reservation(PassengerInfo passengerInfo, Journey journey)
+{
+    public Reservation()
     {
+
+    }
+    public Reservation(PassengerInfo passengerInfo, Journey journey, long? id = null)
+    {
+        Id = id ?? SnowFlakIdGenerator.NewId();
         Journey = journey;
         PassengerInfo = passengerInfo;
     }
 
-    public static Reservation Create(PassengerInfo passengerInfo, Journey journey)
+    public static Reservation Create(PassengerInfo passengerInfo, Journey journey , long? id = null)
     {
-        var reservation = new Reservation(passengerInfo, journey);
+        var reservation = new Reservation(passengerInfo, journey, id);
         return reservation;
     }
     

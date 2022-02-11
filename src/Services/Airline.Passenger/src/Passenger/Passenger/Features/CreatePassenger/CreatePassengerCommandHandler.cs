@@ -8,7 +8,7 @@ using Passenger.Passenger.Exceptions;
 
 namespace Passenger.Passenger.Features.CreatePassenger;
 
-public class CreatePassengerCommandHandler: IRequestHandler<CreatePassengerCommand, CreatePassengerResponseDto>
+public class CreatePassengerCommandHandler: IRequestHandler<CreatePassengerCommand, PassengerResponseDto>
 {
     private readonly IEventProcessor _eventProcessor;
     private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ public class CreatePassengerCommandHandler: IRequestHandler<CreatePassengerComma
         _passengerDbContext = passengerDbContext;
     }
 
-    public async Task<CreatePassengerResponseDto> Handle(CreatePassengerCommand command, CancellationToken cancellationToken)
+    public async Task<PassengerResponseDto> Handle(CreatePassengerCommand command, CancellationToken cancellationToken)
     {
         var flight = await _passengerDbContext.Passengers.SingleOrDefaultAsync(x => x.PassportNumber == command.PassportNumber,
             cancellationToken);
@@ -37,6 +37,6 @@ public class CreatePassengerCommandHandler: IRequestHandler<CreatePassengerComma
 
         await _passengerDbContext.SaveChangesAsync(cancellationToken);
 
-        return _mapper.Map<CreatePassengerResponseDto>(newPassenger.Entity);
+        return _mapper.Map<PassengerResponseDto>(newPassenger.Entity);
     }
 }
