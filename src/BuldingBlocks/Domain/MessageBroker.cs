@@ -14,7 +14,7 @@ public class MessageBroker : IMessageBroker
         _logger = logger;
     }
 
-    public async Task PublishAsync(IEnumerable<IEvent> events)
+    public async Task PublishAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
     {
         if (events is null)
         {
@@ -27,8 +27,19 @@ public class MessageBroker : IMessageBroker
             {
                 continue;
             }
-            await _publishEndpoint.Publish((dynamic) @event);
-            _logger.LogInformation($"Published event :{@event}");
+            
+            await PublishAsync(@event, cancellationToken);
         }
+    }
+
+    public async Task PublishAsync(IEvent @event, CancellationToken cancellationToken = default)
+    {
+        if (@event is null)
+        {
+            return;
+        }
+        
+        await _publishEndpoint.Publish((dynamic) @event);
+        _logger.LogInformation($"Published event :{@event}");
     }
 }

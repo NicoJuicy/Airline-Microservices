@@ -7,14 +7,13 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Identity.Identity.Features.RegisterNewUser;
 
-[Route(BaseApiPath + "/login")]
+[Route(BaseApiPath + "/users")]
 public class LoginEndpoint: BaseController
 {
     
-    [HttpPost(nameof(RegisterNewUser))]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [SwaggerOperation(Summary = "Register new user", Description = "Register new user")]
     public async Task<ActionResult> RegisterNewUser([FromBody] RegisterNewUserCommand command, CancellationToken cancellationToken)
     {

@@ -1,3 +1,4 @@
+using BuildingBlocks.CAP;
 using BuildingBlocks.Domain;
 using BuildingBlocks.MassTransit;
 using BuildingBlocks.Persistence;
@@ -37,7 +38,7 @@ builder.Services.AddTransient<IEventMapper, EventMapper>();
 builder.Services.AddTransient<IMessageBroker, MessageBroker>();
 builder.Services.AddTransient<IEventProcessor, EventProcessor>();
 
-builder.Services.AddCustomMassTransit();
+builder.Services.AddCustomMassTransit(typeof(IdentityRoot).Assembly);
 
 builder.Services.AddIdentityServer(env);
 

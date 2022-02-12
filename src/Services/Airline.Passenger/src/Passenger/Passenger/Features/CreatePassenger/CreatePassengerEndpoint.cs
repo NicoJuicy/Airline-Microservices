@@ -5,10 +5,10 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Passenger.Passenger.Features.CreatePassenger;
 
-[Route(BaseApiPath + "/create-reservation")]
+[Route(BaseApiPath + "/passengers")]
 public class CreatePassengerEndpoint : BaseController
 {
-    [HttpPost(nameof(CreateReservation))]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation(Summary = "Create new reservation", Description = "Create new reservation")]

@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BuildingBlocks.Domain;
+using BuildingBlocks.MessageContracts;
 using Identity.Identity.Dtos;
 using Identity.Identity.Exceptions;
 using Identity.Models;
@@ -12,10 +14,12 @@ namespace Identity.Identity.Features.RegisterNewUser;
 public class RegisterNewUserCommandHandler : IRequestHandler<RegisterNewUserCommand, RegisterNewUserResponseDto>
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IMessageBroker _messageBroker;
 
-    public RegisterNewUserCommandHandler(UserManager<ApplicationUser> userManager)
+    public RegisterNewUserCommandHandler(UserManager<ApplicationUser> userManager, IMessageBroker messageBroker)
     {
         _userManager = userManager;
+        _messageBroker = messageBroker;
     }
 
     public async Task<RegisterNewUserResponseDto> Handle(RegisterNewUserCommand command,
@@ -38,6 +42,8 @@ public class RegisterNewUserCommandHandler : IRequestHandler<RegisterNewUserComm
         if (roleResult.Succeeded == false)
             throw new RegisterIdentityUserException(string.Join(',', roleResult.Errors.Select(e => e.Description)));
 
+        await _messageBroker.PublishAsync(new UserCreated(applicationUser.Id, applicationUser.FirstName + " " + applicationUser.LastName), cancellationToken);
+        
         return new RegisterNewUserResponseDto
         {
             Id = applicationUser.Id,

@@ -1,19 +1,19 @@
 using System.Reflection;
 using BuildingBlocks.Domain;
 using BuildingBlocks.Utils;
+using Humanizer;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ.Client;
 
 namespace BuildingBlocks.MassTransit;
 
 public static class Extensions
 {
-    public static IServiceCollection AddCustomMassTransit(this IServiceCollection services)
+    public static IServiceCollection AddCustomMassTransit(this IServiceCollection services, Assembly assembly)
     {
         services.AddMassTransit(configure =>
         {
-            configure.AddConsumers(Assembly.GetEntryAssembly());
+            configure.AddConsumers(assembly);
 
             configure.UsingRabbitMq((context, configurator) =>
             {
@@ -35,24 +35,25 @@ public static class Extensions
                         .Where(x => x.IsAssignableTo(typeof(IConsumer<>).MakeGenericType(type))).ToList();
 
                     if (consumers.Any())
-                        configurator.ReceiveEndpoint(rabbitMqOptions.ExchangeName, e =>
-                        {
-                            foreach (var consumer in consumers)
+                        configurator.ReceiveEndpoint(
+                            string.IsNullOrEmpty(rabbitMqOptions.ExchangeName)
+                                ? type.Name.Underscore()
+                                : $"{rabbitMqOptions.ExchangeName}_{type.Name.Underscore()}", e =>
                             {
-                                configurator.ConfigureEndpoints(context, x => x.Exclude(consumer));
+                                foreach (var consumer in consumers)
+                                {
+                                    configurator.ConfigureEndpoints(context, x => x.Exclude(consumer));
 
-                                var methodInfo = typeof(DependencyInjectionReceiveEndpointExtensions)
-                                    .GetMethods()
-                                    .Where(x => x.GetParameters()
-                                        .Any(p => p.ParameterType == typeof(IServiceProvider)))
-                                    .FirstOrDefault(x => x.Name == "Consumer" && x.IsGenericMethod);
+                                    var methodInfo = typeof(DependencyInjectionReceiveEndpointExtensions)
+                                        .GetMethods()
+                                        .Where(x => x.GetParameters()
+                                            .Any(p => p.ParameterType == typeof(IServiceProvider)))
+                                        .FirstOrDefault(x => x.Name == "Consumer" && x.IsGenericMethod);
 
-                                var generic = methodInfo?.MakeGenericMethod(consumer);
-                                generic?.Invoke(e, new object[] {e, context, null});
-                            }
-
-                            e.ExchangeType = ExchangeType.Topic;
-                        });
+                                    var generic = methodInfo?.MakeGenericMethod(consumer);
+                                    generic?.Invoke(e, new object[] {e, context, null});
+                                }
+                            });
                 }
             });
             
@@ -61,3 +62,4 @@ public static class Extensions
         return services;
     }
 }
+

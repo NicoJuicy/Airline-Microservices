@@ -11,22 +11,20 @@ public sealed class EventProcessor : IEventProcessor
     private readonly ILogger<IEventProcessor> _logger;
     private readonly IMediator _mediator;
     private readonly IMessageBroker _messageBroker;
-    private readonly IPublishEndpoint _publishEndpoint;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
     public EventProcessor(IServiceScopeFactory serviceScopeFactory, IEventMapper eventMapper,
         IMessageBroker messageBroker,
-        ILogger<IEventProcessor> logger, IMediator mediator, IPublishEndpoint publishEndpoint)
+        ILogger<IEventProcessor> logger, IMediator mediator)
     {
         _serviceScopeFactory = serviceScopeFactory;
         _eventMapper = eventMapper;
         _messageBroker = messageBroker;
         _logger = logger;
         _mediator = mediator;
-        _publishEndpoint = publishEndpoint;
     }
 
-    public async Task ProcessAsync(IEnumerable<IDomainEvent> events)
+    public async Task ProcessAsync(IEnumerable<IDomainEvent> events, CancellationToken cancellationToken = default)
     {
         if (events is null) return;
 
@@ -35,7 +33,7 @@ public sealed class EventProcessor : IEventProcessor
         if (!integrationEvents.Any()) return;
 
         _logger.LogTrace("Processing integration events...");
-        await _messageBroker.PublishAsync(integrationEvents);
+        await _messageBroker.PublishAsync(integrationEvents, cancellationToken);
     }
 
     private async Task<List<IEvent>> HandleDomainEventsAsync(IEnumerable<IDomainEvent> events)

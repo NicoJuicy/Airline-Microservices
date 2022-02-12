@@ -35,7 +35,7 @@ builder.Services.AddTransient<IEventMapper, EventMapper>();
 builder.Services.AddTransient<IMessageBroker, MessageBroker>();
 builder.Services.AddTransient<IEventProcessor, EventProcessor>();
 
-builder.Services.AddCustomMassTransit();
+builder.Services.AddCustomMassTransit(typeof(PassengerRoot).Assembly);
 
 SnowFlakIdGenerator.Configure(2);
 

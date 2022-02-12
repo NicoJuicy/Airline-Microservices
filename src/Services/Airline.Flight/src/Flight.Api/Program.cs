@@ -1,3 +1,4 @@
+using BuildingBlocks.CAP;
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
 using BuildingBlocks.MassTransit;
@@ -38,7 +39,7 @@ builder.Services.AddTransient<IEventMapper, EventMapper>();
 builder.Services.AddTransient<IMessageBroker, MessageBroker>();
 builder.Services.AddTransient<IEventProcessor, EventProcessor>();
 
-builder.Services.AddCustomMassTransit();
+builder.Services.AddCustomMassTransit(typeof(FlightRoot).Assembly);
 
 SnowFlakIdGenerator.Configure(1);
 

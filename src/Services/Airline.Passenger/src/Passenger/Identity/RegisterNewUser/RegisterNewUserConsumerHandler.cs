@@ -1,0 +1,27 @@
+using Ardalis.GuardClauses;
+using BuildingBlocks.MessageContracts;
+using MassTransit;
+using Passenger.Data;
+
+namespace Passenger.Identity.RegisterNewUser;
+
+public class RegisterNewUserConsumerHandler : IConsumer<UserCreated>
+{
+    private readonly PassengerDbContext _passengerDbContext;
+
+    public RegisterNewUserConsumerHandler(PassengerDbContext passengerDbContext)
+    {
+        _passengerDbContext = passengerDbContext;
+    }
+
+    public async Task Consume(ConsumeContext<UserCreated> context)
+    {
+        Guard.Against.Null(context.Message, nameof(UserCreated));
+
+        var passenger = Models.Passenger.Create(context.Message.Name, context.Message.Id);
+
+        await _passengerDbContext.AddAsync(passenger);
+
+        await _passengerDbContext.SaveChangesAsync();
+    }
+}

@@ -1,4 +1,5 @@
 using BuildingBlocks.Domain;
 
-namespace Flight.Flight.Features.CreateFlight;
+namespace BuildingBlocks.MessageContracts;
+
 public record FlightCreated(string FlightNumber) : IEvent;
