@@ -7,11 +7,11 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Identity.Identity.Features.RegisterNewUser;
 
-[Route(BaseApiPath + "/users")]
+[Route(BaseApiPath + "/identity")]
 public class LoginEndpoint: BaseController
 {
     
-    [HttpPost]
+    [HttpPost("/register-user")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation(Summary = "Register new user", Description = "Register new user")]

@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Passenger.Passenger.Features.CreatePassenger;
 
-[Route(BaseApiPath + "/passengers")]
+[Route(BaseApiPath + "/passenger")]
 public class CreatePassengerEndpoint : BaseController
 {
     [HttpPost]

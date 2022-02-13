@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Flight.Flight.Features.GetFlightById;
 
-[Route(BaseApiPath + "/flights")]
+[Route(BaseApiPath + "/flight")]
 public class GetFlightByIdEndpoint: BaseController
 {
     [HttpGet("{id}")]
