@@ -1,0 +1,45 @@
+name: Airline
+services:
+  - name: airline-gateway
+    project: src/ApiGateway/Airline.ApiGateway/src/Airline.ApiGateway.csproj
+    bindings:
+      - port: 5000
+    env:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: development
+
+
+  - name: airline-flight
+    project: src/Services/Airline.Flight/src/Flight.Api/Flight.Api.csproj
+    bindings:
+      - port: 5001
+    env:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: development
+
+
+  - name: airline-identity
+    project: src/Services/Airline.Identity/src/Identity.Api/Identity.Api.csproj
+    bindings:
+      - port: 5001
+    env:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: development
+
+
+  - name: airline-passenger
+    project: src/Services/Airline.Passenger/src/Passenger.Api/Passenger.Api.csproj
+    bindings:
+      - port: 5006
+    env:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: development      
+
+
+  - name: airline-reservation
+    project: src/Services/Airline.Reservation/src/Reservation.Api/Reservation.Api.csproj
+    bindings:
+      - port: 5007
+    env:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: development           

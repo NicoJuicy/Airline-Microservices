@@ -2,21 +2,15 @@ using BuildingBlocks.Jwt;
 using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.Services.AddJwt();
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("Yarp"));
 
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseRouting();
 app.UseHttpsRedirection();
@@ -37,5 +31,7 @@ app.UseEndpoints(endpoints =>
         });
     });
 });
+
+app.MapGet("/", x=> x.Response.WriteAsync(configuration["app"]));
 
 app.Run();
