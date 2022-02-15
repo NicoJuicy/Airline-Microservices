@@ -1,5 +1,6 @@
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
+using BuildingBlocks.Jwt;
 using BuildingBlocks.MassTransit;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
@@ -17,7 +18,8 @@ var configuration = builder.Configuration;
 
 Console.WriteLine(FiggleFonts.Standard.Render(configuration["app"]));
 
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddJwt();
+builder.Services.AddControllers();
 builder.Services.AddCustomSwagger(builder.Configuration, typeof(PassengerRoot).Assembly);
 builder.Services.AddCustomVersioning();
 builder.Services.AddCustomMediatR();
@@ -49,6 +51,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseProblemDetails();
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/", x=> x.Response.WriteAsync(configuration["app"]));
 

@@ -54,6 +54,7 @@ app.UseMigrations();
 app.UseProblemDetails();
 app.UseHttpsRedirection();
 app.UseIdentityServer();
+
 app.MapControllers();
 app.MapGet("/", x=> x.Response.WriteAsync(configuration["app"]));
 

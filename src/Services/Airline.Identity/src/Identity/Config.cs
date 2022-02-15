@@ -14,36 +14,48 @@ public static class Config
             new IdentityResources.Email(),
             new IdentityResources.Phone(),
             new IdentityResources.Address(),
-            new IdentityResource (Constants.StandardScopes.Roles, new List<string> { "role" })
+            new(Constants.StandardScopes.Roles, new List<string> {"role"})
         };
+    
 
     public static IEnumerable<ApiScope> ApiScopes =>
-        new List<ApiScope> { new ApiScope(Constants.StandardScopes.EShopApi )};
+        new List<ApiScope>
+        {
+            new(Constants.StandardScopes.FlightApi),
+            new(Constants.StandardScopes.PassengerApi),
+            new(Constants.StandardScopes.ReservationApi)
+        };
 
-    
+
     public static IList<ApiResource> ApiResources =>
         new List<ApiResource>
         {
-            new ApiResource(Constants.StandardScopes.EShopApi)
-            {
-                Scopes = {Constants.StandardScopes.EShopApi}
-            }
+            new(Constants.StandardScopes.FlightApi),
+            new(Constants.StandardScopes.PassengerApi),
+            new(Constants.StandardScopes.ReservationApi)
         };
-
-
+    
     public static IEnumerable<Client> Clients =>
         new List<Client>
         {
-            new Client
+            new()
             {
                 ClientId = "client",
-                ClientSecrets = new [] { new Secret("secret".Sha512()) },
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+                ClientSecrets =
+                {
+                    new Secret("secret".Sha256())
+                },
+
                 AllowedScopes =
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
-                    Constants.StandardScopes.EShopApi
+                    Constants.StandardScopes.FlightApi,
+                    Constants.StandardScopes.PassengerApi,
+                    Constants.StandardScopes.ReservationApi
                 }
             }
         };

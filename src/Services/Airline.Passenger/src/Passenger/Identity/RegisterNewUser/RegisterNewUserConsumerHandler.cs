@@ -1,5 +1,5 @@
 using Ardalis.GuardClauses;
-using BuildingBlocks.MessageContracts;
+using BuildingBlocks.EventBus.Messages;
 using MassTransit;
 using Passenger.Data;
 

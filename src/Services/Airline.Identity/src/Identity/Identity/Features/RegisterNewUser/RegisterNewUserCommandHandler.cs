@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BuildingBlocks.Domain;
-using BuildingBlocks.MessageContracts;
+using BuildingBlocks.EventBus.Messages;
 using Identity.Identity.Dtos;
 using Identity.Identity.Exceptions;
 using Identity.Models;

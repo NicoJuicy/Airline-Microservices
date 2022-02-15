@@ -1,5 +1,5 @@
 using BuildingBlocks.Domain;
 
-namespace BuildingBlocks.MessageContracts;
+namespace BuildingBlocks.EventBus.Messages;
 
 public record UserCreated(long Id, string Name) : IEvent;

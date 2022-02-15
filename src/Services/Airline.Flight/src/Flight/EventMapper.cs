@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BuildingBlocks.Domain;
-using BuildingBlocks.MessageContracts;
+using BuildingBlocks.EventBus.Messages;
 using Flight.Events;
 
 namespace Flight;
