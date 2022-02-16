@@ -430,3 +430,6 @@ fabric.properties
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Tye
+.tye/
