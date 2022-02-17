@@ -1,5 +1,5 @@
 using BuildingBlocks.Domain;
 
-namespace Flight.Events;
+namespace Flight.Flight.Events;
 
 public record FlightCreatedDomainEvent(string FlightNumber) : IDomainEvent;

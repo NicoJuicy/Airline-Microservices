@@ -1,5 +1,9 @@
-namespace BuildingBlocks.Domain;
+using MassTransit;
+using MediatR;
 
-public interface IHaveIntegrationEvent
+namespace BuildingBlocks.Domain;
+//Marker
+[ExcludeFromTopology]
+public interface IIntegrationEvent : INotification
 {
 }
