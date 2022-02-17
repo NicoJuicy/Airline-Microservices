@@ -14,7 +14,7 @@ public class MessageBroker : IMessageBroker
         _logger = logger;
     }
 
-    public async Task PublishAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
+    public async Task PublishAsync(IEnumerable<IIntegrationEvent> events, CancellationToken cancellationToken = default)
     {
         if (events is null)
         {
@@ -32,7 +32,7 @@ public class MessageBroker : IMessageBroker
         }
     }
 
-    public async Task PublishAsync(IEvent @event, CancellationToken cancellationToken = default)
+    public async Task PublishAsync(IIntegrationEvent @event, CancellationToken cancellationToken = default)
     {
         if (@event is null)
         {

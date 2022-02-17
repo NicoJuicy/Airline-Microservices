@@ -2,4 +2,4 @@ using BuildingBlocks.Domain;
 
 namespace BuildingBlocks.EventBus.Messages;
 
-public record UserCreated(long Id, string Name) : IEvent;
+public record UserCreated(long Id, string Name) : IIntegrationEvent;

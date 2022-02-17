@@ -1,7 +1,7 @@
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
 
-namespace Flight.Models;
+namespace Flight.Flight.Models;
 
 public class Aircraft: BaseAggregateRoot<long>
 {

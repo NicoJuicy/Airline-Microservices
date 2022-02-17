@@ -5,7 +5,7 @@ using BuildingBlocks.Domain;
 using Flight.Data;
 using Flight.Flight.Dtos;
 using Flight.Flight.Exceptions;
-using Flight.Models;
+using Flight.Flight.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

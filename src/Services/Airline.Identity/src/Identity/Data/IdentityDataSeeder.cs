@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using BuildingBlocks.Persistence;
-using Identity.Models;
+using Identity.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Identity.Data;

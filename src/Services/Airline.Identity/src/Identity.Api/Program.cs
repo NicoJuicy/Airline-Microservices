@@ -19,14 +19,14 @@ var env = builder.Environment;
 
 Console.WriteLine(FiggleFonts.Standard.Render(configuration["app"]));
 
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers();
 builder.Services.AddCustomSwagger(builder.Configuration, typeof(IdentityRoot).Assembly);
 builder.Services.AddCustomVersioning();
-
-builder.Services.AddMediatR();
-
+builder.Services.AddCustomMediatR();
 builder.Services.AddValidatorsFromAssembly(typeof(IdentityRoot).Assembly);
 builder.Services.AddCustomProblemDetails();
+builder.Services.AddAutoMapper(typeof(IdentityRoot).Assembly);
+
 
 builder.Services.AddDbContext<IdentityContext>(option =>
 {

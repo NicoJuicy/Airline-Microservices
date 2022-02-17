@@ -1,4 +1,4 @@
-using Flight.Models;
+using Flight.Flight.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

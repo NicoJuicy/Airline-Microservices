@@ -1,4 +1,4 @@
-using Passenger.Models;
+using Passenger.Passenger.Models;
 
 namespace Passenger.Passenger.Dtos;
 

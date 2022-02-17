@@ -1,4 +1,3 @@
-using Flight.Models;
 using FluentValidation;
 
 namespace Flight.Flight.Features.GetFlightById;

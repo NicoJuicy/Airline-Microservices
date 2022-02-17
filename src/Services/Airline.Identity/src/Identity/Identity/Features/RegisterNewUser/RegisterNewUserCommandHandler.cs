@@ -5,7 +5,7 @@ using BuildingBlocks.Domain;
 using BuildingBlocks.EventBus.Messages;
 using Identity.Identity.Dtos;
 using Identity.Identity.Exceptions;
-using Identity.Models;
+using Identity.Identity.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

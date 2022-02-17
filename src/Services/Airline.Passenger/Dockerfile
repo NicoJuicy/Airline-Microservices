@@ -33,8 +33,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 # Setup working directory for the project
 WORKDIR /app
 COPY --from=builder /src/Services/Airline.Passenger/src/Passenger.Api/out  .
-EXPOSE 5006
-ENV ASPNETCORE_URLS http://*:5006
+EXPOSE 80
+ENV ASPNETCORE_URLS http://*:80
 ENV ASPNETCORE_ENVIRONMENT docker
 ENTRYPOINT ["dotnet", "Passenger.Api.dll"]
 

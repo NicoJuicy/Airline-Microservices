@@ -1,5 +1,5 @@
 using System.Reflection;
-using Flight.Models;
+using Flight.Flight.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Flight.Data
@@ -10,7 +10,7 @@ namespace Flight.Data
         {
         }
 
-        public DbSet<Models.Flight> Flights => Set<Models.Flight>();
+        public DbSet<Flight.Models.Flight> Flights => Set<Flight.Models.Flight>();
         public DbSet<Airport> Airports => Set<Airport>();
         public DbSet<Aircraft> Aircraft  => Set<Aircraft>();
         

@@ -9,7 +9,7 @@ public class ReservationDbContext: DbContext
     {
     }
 
-    public DbSet<Models.Reservation> Reservations => Set<Models.Reservation>();
+    public DbSet<Reservation.Models.Reservation> Reservations => Set<Reservation.Models.Reservation>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

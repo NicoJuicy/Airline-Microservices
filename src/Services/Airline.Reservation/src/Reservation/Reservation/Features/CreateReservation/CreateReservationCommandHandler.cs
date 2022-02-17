@@ -4,10 +4,10 @@ using MediatR;
 using Reservation.Data;
 using Reservation.Flight.Clients;
 using Reservation.Flight.Exceptions;
-using Reservation.Models.ValueObjects;
 using Reservation.Passenger.Clients;
 using Reservation.Reservation.Dtos;
 using Reservation.Reservation.Exceptions;
+using Reservation.Reservation.Models.ValueObjects;
 
 namespace Reservation.Reservation.Features.CreateReservation;
 

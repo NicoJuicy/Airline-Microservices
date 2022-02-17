@@ -1,8 +1,8 @@
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
-using Reservation.Models.ValueObjects;
+using Reservation.Reservation.Models.ValueObjects;
 
-namespace Reservation.Models;
+namespace Reservation.Reservation.Models;
 
 public class Reservation: BaseAggregateRoot<long>
 {

@@ -1,12 +1,12 @@
-using Flight.Models;
+using Flight.Flight.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Flight.Data.Configurations;
 
-public class FlightTypeConfiguration: IEntityTypeConfiguration<Models.Flight>
+public class FlightTypeConfiguration: IEntityTypeConfiguration<Flight.Models.Flight>
 {
-    public void Configure(EntityTypeBuilder<Models.Flight> builder)
+    public void Configure(EntityTypeBuilder<Flight.Models.Flight> builder)
     {
         builder.ToTable("Flight", "dbo");
 

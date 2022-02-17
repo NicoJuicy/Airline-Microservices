@@ -1,4 +1,4 @@
-namespace Passenger.Models;
+namespace Passenger.Passenger.Models;
 
 public enum PassengerType
 {

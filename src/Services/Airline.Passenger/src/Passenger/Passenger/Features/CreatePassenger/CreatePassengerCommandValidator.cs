@@ -1,5 +1,5 @@
 using FluentValidation;
-using Passenger.Models;
+using Passenger.Passenger.Models;
 
 namespace Passenger.Passenger.Features.CreatePassenger;
 

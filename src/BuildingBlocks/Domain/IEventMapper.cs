@@ -2,6 +2,6 @@ namespace BuildingBlocks.Domain;
 
 public interface IEventMapper
 {
-    IEvent Map(IDomainEvent @event);
-    IEnumerable<IEvent> MapAll(IEnumerable<IDomainEvent> events);
+    IIntegrationEvent Map(IDomainEvent @event);
+    IEnumerable<IIntegrationEvent> MapAll(IEnumerable<IDomainEvent> events);
 }

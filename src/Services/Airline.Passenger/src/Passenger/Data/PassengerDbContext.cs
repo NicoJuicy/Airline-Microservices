@@ -9,7 +9,7 @@ public sealed class PassengerDbContext: DbContext
     {
     }
 
-    public DbSet<Models.Passenger> Passengers => Set<Models.Passenger>();
+    public DbSet<Passenger.Models.Passenger> Passengers => Set<Passenger.Models.Passenger>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

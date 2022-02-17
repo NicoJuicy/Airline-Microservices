@@ -1,4 +1,4 @@
-namespace Flight.Models;
+namespace Flight.Flight.Models;
 
 public enum FlightStatus
 {

@@ -1,6 +1,6 @@
 using MediatR;
-using Passenger.Models;
 using Passenger.Passenger.Dtos;
+using Passenger.Passenger.Models;
 
 namespace Passenger.Passenger.Features.CreatePassenger;
 

@@ -33,8 +33,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 # Setup working directory for the project
 WORKDIR /app
 COPY --from=builder /src/Services/Airline.Identity/src/Identity.Api/out  .
-EXPOSE 5005
-ENV ASPNETCORE_URLS http://*:5005
+EXPOSE 80
+ENV ASPNETCORE_URLS http://*:80
 ENV ASPNETCORE_ENVIRONMENT docker
 ENTRYPOINT ["dotnet", "Identity.Api.dll"]
 

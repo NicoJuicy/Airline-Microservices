@@ -1,6 +1,6 @@
 using System;
 using Flight.Flight.Dtos;
-using Flight.Models;
+using Flight.Flight.Models;
 using MediatR;
 
 namespace Flight.Flight.Features.CreateFlight;

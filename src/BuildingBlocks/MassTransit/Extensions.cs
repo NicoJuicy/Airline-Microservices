@@ -9,6 +9,11 @@ namespace BuildingBlocks.MassTransit;
 
 public static class Extensions
 {
+    static bool? _isRunningInContainer;
+
+    private static bool IsRunningInContainer => _isRunningInContainer ??= 
+        bool.TryParse(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), out var inContainer) && inContainer;
+    
     public static IServiceCollection AddCustomMassTransit(this IServiceCollection services, Assembly assembly)
     {
         services.AddMassTransit(configure =>
@@ -18,14 +23,16 @@ public static class Extensions
             configure.UsingRabbitMq((context, configurator) =>
             {
                 var rabbitMqOptions = services.GetOptions<RabbitMqOptions>("RabbitMq");
-                configurator.Host(rabbitMqOptions.HostName, h =>
+                var host = IsRunningInContainer ? "rabbitmq" : rabbitMqOptions.HostName;
+                
+                    configurator.Host(host, h =>
                 {
                     h.Username(rabbitMqOptions.UserName);
                     h.Password(rabbitMqOptions.Password);
                 });
 
                 var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
-                    .Where(x => x.IsAssignableTo(typeof(IEvent)) && x.IsInterface == false &&
+                    .Where(x => x.IsAssignableTo(typeof(IIntegrationEvent)) && x.IsInterface == false &&
                                 x.IsAbstract == false &&
                                 x.IsGenericType == false);
 

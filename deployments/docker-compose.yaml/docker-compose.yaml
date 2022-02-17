@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
   rabbitmq:
       image: rabbitmq:3-management
@@ -7,105 +7,110 @@ services:
       ports:
         - 5672:5672
         - 15672:15672
+      # networks:
+      #   - airline
+
   db:
     container_name: sqldb
     image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: unless-stopped
     ports:
       - "1433:1433"
     environment:
       SA_PASSWORD: "@Aa123456"
-      ACCEPT_EULA: "Y"      
+      ACCEPT_EULA: "Y"
+    # networks:
+    #   - airline      
 
-  gateway:
-    image: gateway
-    build:
-      args:
-        Version: "1"
-      context: ../../
-      dockerfile: src/ApiGateway/Airline.ApiGateway/Dockerfile
-    container_name: airline-gateway
-    restart: unless-stopped
-    ports:
-      - 5000:80
-    # depends_on:
-      # - postgres
-      # - rabbitmq
-      # - mongo
-    networks:
-      - airline
+  # gateway:
+  #   image: gateway
+  #   build:
+  #     args:
+  #       Version: "1"
+  #     context: ../../
+  #     dockerfile: src/ApiGateway/Airline.ApiGateway/Dockerfile
+  #   container_name: airline-gateway
+  #   ports:
+  #     - 5000:443
+  #   volumes: 
+  #     - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+  #     - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/  
+  #   # depends_on:
+  #     # - postgres
+  #     # - rabbitmq
+  #     # - mongo
+  #   networks:
+  #     - airline
 
-  flight:
-    image: flight
-    build:
-      args:
-        Version: "1"
-      context: ../../
-      dockerfile: src/Services/Airline.Flight/Dockerfile
-    container_name: airline-flight
-    restart: unless-stopped
-    ports:
-      - 5001:80
-    depends_on:
-      - db
-      - rabbitmq
-      # - mongo
-    networks:
-      - airline
+# networks:
+#   airline:
+#     name: airline
 
-  identity:
-    image: identity
-    build:
-      args:
-        Version: "1"
-      context: ../../
-      dockerfile: src/Services/Airline.Identity/Dockerfile
-    container_name: airline-identity
-    restart: unless-stopped
-    ports:
-      - 5005:80
-    depends_on:
-      - db
-      - rabbitmq
-      # - mongo
-    networks:
-      - airline
+  # flight:
+  #   image: flight
+  #   build:
+  #     args:
+  #       Version: "1"
+  #     context: ../../
+  #     dockerfile: src/Services/Airline.Flight/Dockerfile
+  #   container_name: airline-flight
+  #   ports:
+  #     - 5001:80
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #     # - mongo
+  #   networks:
+  #     - airline
 
-  passenger:
-    image: passenger
-    build:
-      args:
-        Version: "1"
-      context: ../../
-      dockerfile: src/Services/Airline.Passenger/Dockerfile
-    container_name: airline-passenger
-    restart: unless-stopped
-    ports:
-      - 5005:80
-    depends_on:
-      - db
-      - rabbitmq
-      # - mongo
-    networks:
-      - airline
+  # identity:
+  #   image: identity
+  #   build:
+  #     args:
+  #       Version: "1"
+  #     context: ../../
+  #     dockerfile: src/Services/Airline.Identity/Dockerfile
+  #   container_name: airline-identity
+  #   ports:
+  #     - 5005:80
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #     # - mongo
+  #   networks:
+  #     - airline
 
-  reservation:
-    image: reservation
-    build:
-      args:
-        Version: "1"
-      context: ../../
-      dockerfile: src/Services/Airline.Reservation/Dockerfile
-    container_name: airline-reservation
-    restart: unless-stopped
-    ports:
-      - 5005:80
-    depends_on:
-      - db
-      - rabbitmq
-      # - mongo
-    networks:
-      - airline                 
+  # passenger:
+  #   image: passenger
+  #   build:
+  #     args:
+  #       Version: "1"
+  #     context: ../../
+  #     dockerfile: src/Services/Airline.Passenger/Dockerfile
+  #   container_name: airline-passenger
+  #   ports:
+  #     - 5006:80
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #     # - mongo
+  #   networks:
+  #     - airline
 
-networks:
-  airline:
-    name: airline
+  # reservation:
+  #   image: reservation
+  #   build:
+  #     args:
+  #       Version: "1"
+  #     context: ../../
+  #     dockerfile: src/Services/Airline.Reservation/Dockerfile
+  #   container_name: airline-reservation
+  #   ports:
+  #     - 5007:80
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #     # - mongo
+  #   networks:
+  #     - airline                 
+ 

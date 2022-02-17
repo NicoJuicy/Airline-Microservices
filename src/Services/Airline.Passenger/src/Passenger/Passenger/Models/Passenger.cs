@@ -1,7 +1,7 @@
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
 
-namespace Passenger.Models;
+namespace Passenger.Passenger.Models;
 
 public class Passenger: BaseAggregateRoot<long>
 {

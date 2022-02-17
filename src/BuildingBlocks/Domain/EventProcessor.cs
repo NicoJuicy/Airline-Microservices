@@ -36,13 +36,13 @@ public sealed class EventProcessor : IEventProcessor
         await _messageBroker.PublishAsync(integrationEvents, cancellationToken);
     }
 
-    private async Task<List<IEvent>> HandleDomainEventsAsync(IEnumerable<IDomainEvent> events)
+    private async Task<List<IIntegrationEvent>> HandleDomainEventsAsync(IEnumerable<IDomainEvent> events)
     {
         var wrappedIntegrationEvents = GetWrappedIntegrationEvents(events)?.ToList();
         if (wrappedIntegrationEvents?.Count > 0)
             return wrappedIntegrationEvents;
 
-        var integrationEvents = new List<IEvent>();
+        var integrationEvents = new List<IIntegrationEvent>();
         using var scope = _serviceScopeFactory.CreateScope();
         foreach (var @event in events)
         {
@@ -61,7 +61,7 @@ public sealed class EventProcessor : IEventProcessor
         return integrationEvents;
     }
 
-    public IEnumerable<IEvent> GetWrappedIntegrationEvents(IEnumerable<IDomainEvent> domainEvents)
+    public IEnumerable<IIntegrationEvent> GetWrappedIntegrationEvents(IEnumerable<IDomainEvent> domainEvents)
     {
         foreach (var domainEvent in domainEvents.Where(x =>
                      x is IHaveIntegrationEvent))
@@ -69,7 +69,7 @@ public sealed class EventProcessor : IEventProcessor
             var genericType = typeof(IntegrationEventWrapper<>)
                 .MakeGenericType(domainEvent.GetType());
 
-            var domainNotificationEvent = (IEvent) Activator
+            var domainNotificationEvent = (IIntegrationEvent) Activator
                 .CreateInstance(genericType, domainEvent);
 
             yield return domainNotificationEvent;

@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Events" />
     <Folder Include="Passenger\Exceptions" />
+    <Folder Include="Reservation\Events\Domain" />
   </ItemGroup>
 
   <ItemGroup>

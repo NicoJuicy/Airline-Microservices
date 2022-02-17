@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BuildingBlocks.Persistence;
-using Flight.Models;
+using Flight.Flight.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Flight.Data.Seed
@@ -57,9 +57,9 @@ namespace Flight.Data.Seed
         {
             if (!await _flightDbContext.Flights.AnyAsync())
             {
-                var flights = new List<Models.Flight>
+                var flights = new List<Flight.Models.Flight>
                 {
-                    Models.Flight.Create("BD467",1, 1, new DateTime(2022, 1, 31, 12, 0, 0),
+                    Flight.Models.Flight.Create("BD467",1, 1, new DateTime(2022, 1, 31, 12, 0, 0),
                         new DateTime(2022, 1, 31, 14, 0, 0), 2, 120m, new DateTime(2022, 1, 31),
                         FlightStatus.Completed, 8000, 1)
                 };
