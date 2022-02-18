@@ -1,5 +1,155 @@
-version: "3.7"
+version: "3.3"
 services:
+
+  flight:
+    image: flight
+    build:
+      args:
+        Version: "1"
+      context: ../../
+      dockerfile: src/Services/Airline.Flight/Dockerfile
+    container_name: airline-flight
+    ports:
+      - 6003:80
+      - 4001:443
+    depends_on:
+      - db
+      - rabbitmq
+      # - mongo
+    volumes:
+        - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        - '${USERPROFILE}\.aspnet\https:/https/'
+    environment:
+        - 'ASPNETCORE_URLS=https://+;http://+'
+        - ASPNETCORE_HTTPS_PORT=5003
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=shieldh1988
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx    
+    networks:
+      - airline
+
+
+  gateway:
+    image: gateway
+    build:
+      args:
+        Version: "1"
+      context: ../../
+      dockerfile: src/ApiGateway/Airline.ApiGateway/Dockerfile
+    container_name: airline-gateway
+    ports:
+      - "5000:80"
+      - "5001:443"
+    depends_on:
+      - db
+      - rabbitmq
+      # - mongo
+    links:
+      - db
+      - rabbitmq
+      # - mongo    
+    volumes:
+        - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        - '${USERPROFILE}\.aspnet\https:/https/'
+    environment:
+        - 'ASPNETCORE_URLS=https://+;http://+'
+        - ASPNETCORE_HTTPS_PORT=5001
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=shieldh1988
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx    
+    networks:
+      - airline
+
+
+  identity:
+    image: identity
+    build:
+      args:
+        Version: "1"
+      context: ../../
+      dockerfile: src/Services/Airline.Identity/Dockerfile
+    container_name: airline-identity
+    ports:
+      - 6005:80
+      - 5005:443
+    depends_on:
+      - db
+      - rabbitmq
+      # - mongo
+    links:
+      - db
+      - rabbitmq
+      # - mongo    
+    volumes:
+        - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        - '${USERPROFILE}\.aspnet\https:/https/'
+    environment:
+        - 'ASPNETCORE_URLS=https://+;http://+'
+        - ASPNETCORE_HTTPS_PORT=5005
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=shieldh1988
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx    
+    networks:
+      - airline  
+
+  passenger:
+    image: passenger
+    build:
+      args:
+        Version: "1"
+      context: ../../
+      dockerfile: src/Services/Airline.Passenger/Dockerfile
+    container_name: airline-passenger
+    ports:
+      - 6012:80
+      - 5012:443
+    depends_on:
+      - db
+      - rabbitmq
+      # - mongo
+    links:
+      - db
+      - rabbitmq
+      # - mongo  
+    volumes:
+        - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        - '${USERPROFILE}\.aspnet\https:/https/'
+    environment:
+        - 'ASPNETCORE_URLS=https://+;http://+'
+        - ASPNETCORE_HTTPS_PORT=5012
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=shieldh1988
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx    
+    networks:
+      - airline 
+
+  reservation:
+    image: reservation
+    build:
+      args:
+        Version: "1"
+      context: ../../
+      dockerfile: src/Services/Airline.Reservation/Dockerfile
+    container_name: airline-reservation
+    ports:
+      - 6010:80
+      - 5010:443
+    depends_on:
+      - db
+      - rabbitmq
+      # - mongo
+    links:
+      - db
+      - rabbitmq
+      # - mongo    
+    volumes:
+        - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        - '${USERPROFILE}\.aspnet\https:/https/'
+    environment:
+        - 'ASPNETCORE_URLS=https://+;http://+'
+        - ASPNETCORE_HTTPS_PORT=5010
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=shieldh1988
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx    
+    networks:
+      - airline          
+
+
   rabbitmq:
       image: rabbitmq:3-management
       container_name: rabbitmq
@@ -7,110 +157,27 @@ services:
       ports:
         - 5672:5672
         - 15672:15672
-      # networks:
-      #   - airline
+      networks:
+        - airline
 
+ 
   db:
     container_name: sqldb
-    image: mcr.microsoft.com/mssql/server:2017-latest
-    restart: unless-stopped
-    ports:
-      - "1433:1433"
+    image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
-      SA_PASSWORD: "@Aa123456"
-      ACCEPT_EULA: "Y"
-    # networks:
-    #   - airline      
+      SA_PASSWORD : "@Aa123456"
+      ACCEPT_EULA : "Y"
+    ports:
+      - "1433:1433" 
+    volumes:
+      - db-data:/var/opt/mssql 
+    networks:
+      - airline  
 
-  # gateway:
-  #   image: gateway
-  #   build:
-  #     args:
-  #       Version: "1"
-  #     context: ../../
-  #     dockerfile: src/ApiGateway/Airline.ApiGateway/Dockerfile
-  #   container_name: airline-gateway
-  #   ports:
-  #     - 5000:443
-  #   volumes: 
-  #     - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
-  #     - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/  
-  #   # depends_on:
-  #     # - postgres
-  #     # - rabbitmq
-  #     # - mongo
-  #   networks:
-  #     - airline
-
-# networks:
-#   airline:
-#     name: airline
-
-  # flight:
-  #   image: flight
-  #   build:
-  #     args:
-  #       Version: "1"
-  #     context: ../../
-  #     dockerfile: src/Services/Airline.Flight/Dockerfile
-  #   container_name: airline-flight
-  #   ports:
-  #     - 5001:80
-  #   depends_on:
-  #     - db
-  #     - rabbitmq
-  #     # - mongo
-  #   networks:
-  #     - airline
-
-  # identity:
-  #   image: identity
-  #   build:
-  #     args:
-  #       Version: "1"
-  #     context: ../../
-  #     dockerfile: src/Services/Airline.Identity/Dockerfile
-  #   container_name: airline-identity
-  #   ports:
-  #     - 5005:80
-  #   depends_on:
-  #     - db
-  #     - rabbitmq
-  #     # - mongo
-  #   networks:
-  #     - airline
-
-  # passenger:
-  #   image: passenger
-  #   build:
-  #     args:
-  #       Version: "1"
-  #     context: ../../
-  #     dockerfile: src/Services/Airline.Passenger/Dockerfile
-  #   container_name: airline-passenger
-  #   ports:
-  #     - 5006:80
-  #   depends_on:
-  #     - db
-  #     - rabbitmq
-  #     # - mongo
-  #   networks:
-  #     - airline
-
-  # reservation:
-  #   image: reservation
-  #   build:
-  #     args:
-  #       Version: "1"
-  #     context: ../../
-  #     dockerfile: src/Services/Airline.Reservation/Dockerfile
-  #   container_name: airline-reservation
-  #   ports:
-  #     - 5007:80
-  #   depends_on:
-  #     - db
-  #     - rabbitmq
-  #     # - mongo
-  #   networks:
-  #     - airline                 
+networks:
+  airline:
+    name: airline      
  
+volumes:
+  db-data:
+    external: false 

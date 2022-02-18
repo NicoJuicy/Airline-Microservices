@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BuildingBlocks.Domain;
 using BuildingBlocks.EventBus.Messages;
-using Flight.Flight.Events;
 using Flight.Flight.Events.Domain;
 
 namespace Flight;

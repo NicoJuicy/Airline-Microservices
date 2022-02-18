@@ -20,6 +20,14 @@ var configuration = builder.Configuration;
 
 Console.WriteLine(FiggleFonts.Standard.Render(configuration["app"]));
 
+builder.Services.AddDbContext<FlightDbContext>(options =>
+    options.UseSqlServer(
+        configuration.GetConnectionString("FlightConnection"),
+        b => b.MigrationsAssembly(typeof(FlightDbContext).Assembly.FullName)));
+
+
+builder.Services.AddScoped<IDataSeeder, FlightDataSeeder>();
+
 builder.Services.AddJwt();
 builder.Services.AddControllers();
 builder.Services.AddCustomSwagger(builder.Configuration, typeof(FlightRoot).Assembly);
@@ -30,12 +38,6 @@ builder.Services.AddCustomProblemDetails();
 builder.Services.AddAutoMapper(typeof(FlightRoot).Assembly);
 
 
-builder.Services.AddDbContext<FlightDbContext>(option =>
-{
-    option.UseSqlServer(configuration.GetConnectionString("FlightConnection"));
-});
-
-builder.Services.AddScoped<IDataSeeder, FlightDataSeeder>();
 builder.Services.AddTransient<IEventMapper, EventMapper>();
 builder.Services.AddTransient<IMessageBroker, MessageBroker>();
 builder.Services.AddTransient<IEventProcessor, EventProcessor>();

@@ -1,7 +1,6 @@
 using System;
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
-using Flight.Flight.Events;
 using Flight.Flight.Events.Domain;
 
 namespace Flight.Flight.Models;

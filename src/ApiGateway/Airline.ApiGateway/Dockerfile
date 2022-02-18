@@ -31,8 +31,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 # Setup working directory for the project
 WORKDIR /app
 COPY --from=builder /src/ApiGateway/Airline.ApiGateway/src/out  .
+EXPOSE 80
 EXPOSE 443
-ENV ASPNETCORE_URLS https://*:443
-ENV ASPNETCORE_ENVIRONMENT docker
 ENTRYPOINT ["dotnet", "Airline.ApiGateway.dll"]
 
