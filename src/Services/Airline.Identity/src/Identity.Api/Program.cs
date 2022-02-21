@@ -1,5 +1,6 @@
 using BuildingBlocks.CAP;
 using BuildingBlocks.Domain;
+using BuildingBlocks.Mapster;
 using BuildingBlocks.MassTransit;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
@@ -25,8 +26,7 @@ builder.Services.AddCustomVersioning();
 builder.Services.AddCustomMediatR();
 builder.Services.AddValidatorsFromAssembly(typeof(IdentityRoot).Assembly);
 builder.Services.AddCustomProblemDetails();
-builder.Services.AddAutoMapper(typeof(IdentityRoot).Assembly);
-
+builder.Services.AddCustomMapster(typeof(IdentityRoot).Assembly);
 
 builder.Services.AddDbContext<IdentityContext>(option =>
 {

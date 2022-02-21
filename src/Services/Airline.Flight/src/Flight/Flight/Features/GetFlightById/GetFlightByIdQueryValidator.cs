@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Flight.Flight.Features.GetFlightById;
 
-public class GetFlightByIdQueryValidator: AbstractValidator<GetFlightByIdQuery>
+public class GetFlightByIdQueryValidator : AbstractValidator<GetFlightByIdQuery>
 {
     public GetFlightByIdQueryValidator()
     {

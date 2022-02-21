@@ -1,13 +1,12 @@
-using AutoMapper;
 using Flight.Flight.Dtos;
-using Flight.Flight.Features.CreateFlight;
+using Mapster;
 
 namespace Flight.Flight.Features;
 
-public class FlightMappings : Profile
+public class FlightMappings : IRegister
 {
-    public FlightMappings()
+    public void Register(TypeAdapterConfig config)
     {
-        CreateMap<Models.Flight, FlightResponseDto>();
+        config.NewConfig<Models.Flight, FlightResponseDto>();
     }
 }

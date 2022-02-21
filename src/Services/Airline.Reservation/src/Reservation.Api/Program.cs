@@ -1,6 +1,7 @@
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
 using BuildingBlocks.Jwt;
+using BuildingBlocks.Mapster;
 using BuildingBlocks.MassTransit;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
@@ -25,7 +26,7 @@ builder.Services.AddCustomVersioning();
 builder.Services.AddCustomMediatR();
 builder.Services.AddValidatorsFromAssembly(typeof(ReservationRoot).Assembly);
 builder.Services.AddCustomProblemDetails();
-builder.Services.AddAutoMapper(typeof(ReservationRoot).Assembly);
+builder.Services.AddCustomMapster(typeof(ReservationRoot).Assembly);
 builder.Services.AddRefitServices();
 
 builder.Services.AddDbContext<ReservationDbContext>(option =>
@@ -54,6 +55,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapGet("/", x=> x.Response.WriteAsync(configuration["app"]));
+app.MapGet("/", x => x.Response.WriteAsync(configuration["app"]));
 
 app.Run();

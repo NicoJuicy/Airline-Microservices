@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Flight.Data;
 using Flight.Flight.Dtos;
+using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

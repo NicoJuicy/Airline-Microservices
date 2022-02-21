@@ -12,7 +12,7 @@ namespace Flight.Flight.Features.GetFlightById;
 public class GetFlightByIdEndpoint: BaseController
 {
     [Authorize]
-    [HttpGet("{id}")]
+    [HttpGet("{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation(Summary = "Get flight by id", Description = "Get flight by id")]

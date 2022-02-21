@@ -1,6 +1,7 @@
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
 using BuildingBlocks.Jwt;
+using BuildingBlocks.Mapster;
 using BuildingBlocks.MassTransit;
 using BuildingBlocks.Swagger;
 using BuildingBlocks.Web;
@@ -25,7 +26,7 @@ builder.Services.AddCustomVersioning();
 builder.Services.AddCustomMediatR();
 builder.Services.AddValidatorsFromAssembly(typeof(PassengerRoot).Assembly);
 builder.Services.AddCustomProblemDetails();
-builder.Services.AddAutoMapper(typeof(PassengerRoot).Assembly);
+builder.Services.AddCustomMapster(typeof(PassengerRoot).Assembly);
 
 
 builder.Services.AddDbContext<PassengerDbContext>(option =>

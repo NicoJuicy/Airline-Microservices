@@ -6,9 +6,9 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Passenger.Passenger.Features.GetPassengerById;
 
 [Route(BaseApiPath + "/passenger")]
-public class GetPassengerByIdEndpoint: BaseController
+public class GetPassengerByIdEndpoint : BaseController
 {
-    [HttpGet("{id}")]
+    [HttpGet("{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation(Summary = "Get passenger by id", Description = "Get passenger by id")]

@@ -1,6 +1,8 @@
+using System.Reflection;
 using BuildingBlocks.Domain;
 using BuildingBlocks.IdsGenerator;
 using BuildingBlocks.Jwt;
+using BuildingBlocks.Mapster;
 using BuildingBlocks.MassTransit;
 using BuildingBlocks.Persistence;
 using BuildingBlocks.Swagger;
@@ -23,7 +25,7 @@ Console.WriteLine(FiggleFonts.Standard.Render(configuration["app"]));
 builder.Services.AddDbContext<FlightDbContext>(options =>
     options.UseSqlServer(
         configuration.GetConnectionString("FlightConnection"),
-        b => b.MigrationsAssembly(typeof(FlightDbContext).Assembly.FullName)));
+        x => x.MigrationsAssembly(typeof(FlightDbContext).Assembly.FullName)));
 
 
 builder.Services.AddScoped<IDataSeeder, FlightDataSeeder>();
@@ -35,8 +37,7 @@ builder.Services.AddCustomVersioning();
 builder.Services.AddCustomMediatR();
 builder.Services.AddValidatorsFromAssembly(typeof(FlightRoot).Assembly);
 builder.Services.AddCustomProblemDetails();
-builder.Services.AddAutoMapper(typeof(FlightRoot).Assembly);
-
+builder.Services.AddCustomMapster(typeof(FlightRoot).Assembly);
 
 builder.Services.AddTransient<IEventMapper, EventMapper>();
 builder.Services.AddTransient<IMessageBroker, MessageBroker>();
