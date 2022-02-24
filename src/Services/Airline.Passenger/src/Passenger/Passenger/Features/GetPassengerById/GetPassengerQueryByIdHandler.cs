@@ -1,5 +1,5 @@
-using AutoMapper;
 using BuildingBlocks.Domain;
+using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Passenger.Data;

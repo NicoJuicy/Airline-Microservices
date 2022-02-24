@@ -4,25 +4,24 @@ using Reservation.Reservation.Models.ValueObjects;
 
 namespace Reservation.Reservation.Models;
 
-public class Reservation: BaseAggregateRoot<long>
+public class Reservation : BaseAggregateRoot<long>
 {
     public Reservation()
     {
-
-    }
-    public Reservation(PassengerInfo passengerInfo, Journey journey, long? id = null)
-    {
-        Id = id ?? SnowFlakIdGenerator.NewId();
-        Journey = journey;
-        PassengerInfo = passengerInfo;
     }
 
-    public static Reservation Create(PassengerInfo passengerInfo, Journey journey , long? id = null)
+    public static Reservation Create(PassengerInfo passengerInfo, Trip trip, long? id = null)
     {
-        var reservation = new Reservation(passengerInfo, journey, id);
+        var reservation = new Reservation()
+        {
+            Id = id ?? SnowFlakIdGenerator.NewId(),
+            Trip = trip,
+            PassengerInfo = passengerInfo,
+        };
+
         return reservation;
     }
-    
-    public Journey Journey { get; private set; }
+
+    public Trip Trip { get; private set; }
     public PassengerInfo PassengerInfo { get; private set; }
 }

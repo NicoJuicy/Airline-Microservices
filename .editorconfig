@@ -223,7 +223,7 @@ dotnet_diagnostic.SA1401.severity = None
 # dotnet_diagnostic.SA1117.severity = Suggestion
 
 # The parameters to a C# method or indexer call or declaration span across multiple lines, but the first parameter does not start on the line after the opening bracket.
-# dotnet_diagnostic.SA1116.severity = Suggestion
+dotnet_diagnostic.SA1116.severity = None
 
 # A C# partial element is missing a documentation header.
 dotnet_diagnostic.SA1601.severity = None

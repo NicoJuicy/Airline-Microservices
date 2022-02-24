@@ -53,11 +53,14 @@ namespace Flight.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     FlightNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AircraftId = table.Column<long>(type: "bigint", nullable: false),
+                    Aircraft_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Aircraft_Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DepartureAirportId = table.Column<long>(type: "bigint", nullable: false),
+                    DepartureAirport_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DepartureAirport_Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArriveDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ArriveAirportId = table.Column<long>(type: "bigint", nullable: false),
+                    ArriveAirport_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArriveAirport_Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DurationMinutes = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FlightDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -68,47 +71,55 @@ namespace Flight.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Flight", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seat",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SeatNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Class = table.Column<int>(type: "int", nullable: false),
+                    AircraftId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seat", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Flight_Aircraft_AircraftId",
+                        name: "FK_Seat_Aircraft_AircraftId",
                         column: x => x.AircraftId,
                         principalSchema: "dbo",
                         principalTable: "Aircraft",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Flight_Airport_ArriveAirportId",
-                        column: x => x.ArriveAirportId,
-                        principalSchema: "dbo",
-                        principalTable: "Airport",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Flight_AircraftId",
+                name: "IX_Seat_AircraftId",
                 schema: "dbo",
-                table: "Flight",
+                table: "Seat",
                 column: "AircraftId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Flight_ArriveAirportId",
-                schema: "dbo",
-                table: "Flight",
-                column: "ArriveAirportId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Airport",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
                 name: "Flight",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Aircraft",
+                name: "Seat",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Airport",
+                name: "Aircraft",
                 schema: "dbo");
         }
     }

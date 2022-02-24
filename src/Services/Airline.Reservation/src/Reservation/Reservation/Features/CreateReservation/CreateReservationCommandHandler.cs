@@ -1,5 +1,5 @@
-using AutoMapper;
 using BuildingBlocks.Domain;
+using MapsterMapper;
 using MediatR;
 using Reservation.Data;
 using Reservation.Flight.Clients;
@@ -11,7 +11,7 @@ using Reservation.Reservation.Models.ValueObjects;
 
 namespace Reservation.Reservation.Features.CreateReservation;
 
-public class CreateReservationCommandHandler: IRequestHandler<CreateReservationCommand, ReservationResponseDto>
+public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand, ReservationResponseDto>
 {
     private readonly IEventProcessor _eventProcessor;
     private readonly ReservationDbContext _reservationDbContext;
@@ -19,8 +19,11 @@ public class CreateReservationCommandHandler: IRequestHandler<CreateReservationC
     private readonly IPassengerServiceClient _passengerServiceClient;
     private readonly IMapper _mapper;
 
-    public CreateReservationCommandHandler(IEventProcessor eventProcessor, IMapper mapper,
-        ReservationDbContext reservationDbContext, IFlightServiceClient flightServiceClient,
+    public CreateReservationCommandHandler(
+        IEventProcessor eventProcessor,
+        IMapper mapper,
+        ReservationDbContext reservationDbContext,
+        IFlightServiceClient flightServiceClient,
         IPassengerServiceClient passengerServiceClient)
     {
         _eventProcessor = eventProcessor;
@@ -39,13 +42,13 @@ public class CreateReservationCommandHandler: IRequestHandler<CreateReservationC
         var passenger = await _passengerServiceClient.GetById(command.PassengerId);
         if (passenger is null)
             throw new PassengerNotFoundException();
-        
-        var reservationEntity = Models.Reservation.Create(new PassengerInfo(passenger.Id, passenger.Name), 
-            new Journey(command.FlightId, flight.DepartureAirportId, flight.DepartureDate, flight.ArriveAirportId, flight.ArriveDate, command.Description));
+
+        var reservationEntity = Models.Reservation.Create(new PassengerInfo(passenger.Id, passenger.Name), new Trip(
+            command.FlightId, flight.DepartureAirportId, flight.FlightDate, flight.ArriveAirportId, command.Description));
 
         var newReservation = await _reservationDbContext.Reservations.AddAsync(reservationEntity, cancellationToken);
 
-        await _eventProcessor.ProcessAsync(newReservation.Entity.Events);
+        await _eventProcessor.ProcessAsync(newReservation.Entity.Events, cancellationToken);
 
         await _reservationDbContext.SaveChangesAsync(cancellationToken);
 

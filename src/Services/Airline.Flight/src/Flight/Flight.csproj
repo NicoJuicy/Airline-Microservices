@@ -14,5 +14,17 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlocks.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Aircraft\Events" />
+    <Folder Include="Aircraft\Exceptions" />
+    <Folder Include="Airport\Events" />
+    <Folder Include="Airport\Exceptions" />
+    <Folder Include="Data\Migrations" />
+    <Folder Include="Seat\Events" />
+    <Folder Include="Seat\Exceptions" />
+    <Folder Include="Seat\Features" />
+    <Folder Include="Seat\Models" />
+  </ItemGroup>
 
 </Project>

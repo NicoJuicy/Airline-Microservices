@@ -35,8 +35,8 @@ WORKDIR /app
 COPY --from=builder /app/Services/Airline.Flight/src/Flight.Api/out  .
 
 
-ENV ASPNETCORE_URLS https://*:4001,http://*:6003
-ENV ASPNETCORE_ENVIRONMENT docker  
+ENV ASPNETCORE_URLS https://*:5003,http://*:5004
+ENV ASPNETCORE_ENVIRONMENT docker
 
 ENTRYPOINT ["dotnet", "Flight.Api.dll"]
 

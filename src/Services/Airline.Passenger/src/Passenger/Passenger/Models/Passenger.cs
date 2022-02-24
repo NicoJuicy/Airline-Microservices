@@ -3,9 +3,10 @@ using BuildingBlocks.IdsGenerator;
 
 namespace Passenger.Passenger.Models;
 
-public class Passenger: BaseAggregateRoot<long>
+public class Passenger : BaseAggregateRoot<long>
 {
-    public static Passenger Create(string name, string passportNumber, PassengerType passengerType, int age, string email, long? id = null)
+    public static Passenger Create(string name, string passportNumber, PassengerType passengerType, int age,
+        string email, long? id = null)
     {
         var passenger = new Passenger
         {
@@ -18,18 +19,15 @@ public class Passenger: BaseAggregateRoot<long>
         };
         return passenger;
     }
-    
+
+
     public static Passenger Create(string name, long? id = null)
     {
-        var passenger = new Passenger
-        {
-            Name = name,
-            Id = id ?? SnowFlakIdGenerator.NewId()
-        };
+        var passenger = new Passenger {Name = name, Id = id ?? SnowFlakIdGenerator.NewId()};
         return passenger;
     }
 
-    
+
     public string PassportNumber { get; private set; }
     public string Name { get; private set; }
     public PassengerType PassengerType { get; private set; }
