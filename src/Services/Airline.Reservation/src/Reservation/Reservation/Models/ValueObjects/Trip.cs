@@ -1,3 +1,4 @@
 namespace Reservation.Reservation.Models.ValueObjects;
 
-public record Trip(long FlightId, long DepartureAirportId, DateTime Date, long ArriveAirportId, string Description);
+public record Trip(string FlightNumber, long AircraftId, long DepartureAirportId, long ArriveAirportId,
+    DateTime FlightDate, decimal Price, string Description, string SeatNumber);

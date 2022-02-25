@@ -14,9 +14,7 @@ public class Reservation : BaseAggregateRoot<long>
     {
         var reservation = new Reservation()
         {
-            Id = id ?? SnowFlakIdGenerator.NewId(),
-            Trip = trip,
-            PassengerInfo = passengerInfo,
+            Id = id ?? SnowFlakIdGenerator.NewId(), Trip = trip, PassengerInfo = passengerInfo
         };
 
         return reservation;

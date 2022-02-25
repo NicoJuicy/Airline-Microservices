@@ -1,4 +1,4 @@
-namespace Flight.Aircraft.Models;
+namespace Reservation.Flight.Models;
 
 public enum SeatClass
 {

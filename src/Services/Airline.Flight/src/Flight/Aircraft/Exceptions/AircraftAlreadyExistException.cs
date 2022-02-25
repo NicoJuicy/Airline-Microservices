@@ -1,10 +1,11 @@
+using System.Net;
 using BuildingBlocks.Exception;
 
-namespace Flight.Flight.Exceptions;
+namespace Flight.Aircraft.Exceptions;
 
-public class FlightAlreadyExistException: ConflictException
+public class AircraftAlreadyExistException : AppException
 {
-    public FlightAlreadyExistException(string code = default) : base("Flight already exist!", code)
+    public AircraftAlreadyExistException() : base("Flight already exist!", HttpStatusCode.Conflict)
     {
     }
 }

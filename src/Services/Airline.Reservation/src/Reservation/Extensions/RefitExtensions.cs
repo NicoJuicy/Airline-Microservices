@@ -16,7 +16,7 @@ public static class RefitExtensions
         services
             .AddRefitClient<IFlightServiceClient>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(refitOptions.FlightAddress));
-        
+
         services
             .AddRefitClient<IPassengerServiceClient>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(refitOptions.PassengerAddress));

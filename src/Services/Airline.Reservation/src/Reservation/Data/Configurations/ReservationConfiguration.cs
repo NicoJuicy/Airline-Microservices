@@ -15,7 +15,11 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation.Mod
         builder.OwnsOne(c => c.Trip, x =>
         {
             x.Property(c => c.Description);
-            x.Property(c => c.FlightId);
+            x.Property(c => c.Price);
+            x.Property(c => c.AircraftId);
+            x.Property(c => c.FlightDate);
+            x.Property(c => c.FlightNumber);
+            x.Property(c => c.SeatNumber);
             x.Property(c => c.ArriveAirportId);
             x.Property(c => c.DepartureAirportId);
         });
@@ -23,7 +27,6 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation.Mod
         builder.OwnsOne(c => c.PassengerInfo, x =>
         {
             x.Property(c => c.Name);
-            x.Property(c => c.PassengerId);
         });
     }
 }

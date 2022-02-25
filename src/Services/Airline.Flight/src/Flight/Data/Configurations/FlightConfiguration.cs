@@ -1,3 +1,4 @@
+using Flight.Flight.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,22 +13,26 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight.Models.Flight
         builder.HasKey(r => r.Id);
         builder.Property(r => r.Id).ValueGeneratedNever();
 
-        builder.OwnsOne(r => r.Aircraft, c =>
-        {
-            c.Property(r => r.Model);
-            c.Property(r => r.Name);
-        });
+        builder
+            .HasOne<Aircraft.Models.Aircraft>()
+            .WithMany()
+            .HasForeignKey(p => p.AircraftId);
 
-        builder.OwnsOne(r => r.ArriveAirport, c =>
-        {
-            c.Property(r => r.Code);
-            c.Property(r => r.Name);
-        });
+        builder
+            .HasOne<Airport.Models.Airport>()
+            .WithMany()
+            .HasForeignKey(d => d.DepartureAirportId)
+            .HasForeignKey(a => a.ArriveAirportId);
 
-        builder.OwnsOne(r => r.DepartureAirport, c =>
-        {
-            c.Property(r => r.Code);
-            c.Property(r => r.Name);
-        });
+        // // https://docs.microsoft.com/en-us/ef/core/modeling/shadow-properties
+        // // https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities
+        // builder.OwnsMany(p => p.Seats, a =>
+        // {
+        //     a.WithOwner().HasForeignKey("FlightId");
+        //     a.Property<long>("Id");
+        //     a.HasKey("Id");
+        //     a.Property<long>("FlightId");
+        //     a.ToTable("Seat");
+        // });
     }
 }

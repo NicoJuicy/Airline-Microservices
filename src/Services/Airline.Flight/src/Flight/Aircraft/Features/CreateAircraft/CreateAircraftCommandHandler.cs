@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BuildingBlocks.Domain;
 using Flight.Aircraft.Dtos;
+using Flight.Aircraft.Exceptions;
 using Flight.Data;
 using Flight.Flight.Dtos;
 using Flight.Flight.Exceptions;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Flight.Data.Migrations
 {
     [DbContext(typeof(FlightDbContext))]
-    [Migration("20220224220933_Init")]
-    partial class Init
+    [Migration("20220225172149_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,8 +79,17 @@ namespace Flight.Data.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("AircraftId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ArriveAirportId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("ArriveDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("DepartureAirportId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");
@@ -108,108 +117,65 @@ namespace Flight.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AircraftId");
+
+                    b.HasIndex("ArriveAirportId");
+
                     b.ToTable("Flight", "dbo");
                 });
 
-            modelBuilder.Entity("Flight.Aircraft.Models.Aircraft", b =>
+            modelBuilder.Entity("Flight.Flight.Models.Seat", b =>
                 {
-                    b.OwnsMany("Flight.Aircraft.Models.ValueObjects.Seat", "Seats", b1 =>
-                        {
-                            b1.Property<long>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("bigint");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<long>("Id"), 1L, 1);
+                    b.Property<int>("Class")
+                        .HasColumnType("int");
 
-                            b1.Property<long>("AircraftId")
-                                .HasColumnType("bigint");
+                    b.Property<long>("FlightId")
+                        .HasColumnType("bigint");
 
-                            b1.Property<int>("Class")
-                                .HasColumnType("int");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
-                            b1.Property<string>("SeatNumber")
-                                .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
 
-                            b1.Property<int>("Type")
-                                .HasColumnType("int");
+                    b.Property<string>("SeatNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("Id");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
-                            b1.HasIndex("AircraftId");
+                    b.HasKey("Id");
 
-                            b1.ToTable("Seat", "dbo");
+                    b.HasIndex("FlightId");
 
-                            b1.WithOwner()
-                                .HasForeignKey("AircraftId");
-                        });
-
-                    b.Navigation("Seats");
+                    b.ToTable("Seat", "dbo");
                 });
 
             modelBuilder.Entity("Flight.Flight.Models.Flight", b =>
                 {
-                    b.OwnsOne("Flight.Flight.Models.ValueObjects.Airport", "ArriveAirport", b1 =>
-                        {
-                            b1.Property<long>("FlightId")
-                                .HasColumnType("bigint");
+                    b.HasOne("Flight.Aircraft.Models.Aircraft", null)
+                        .WithMany()
+                        .HasForeignKey("AircraftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                            b1.Property<string>("Code")
-                                .HasColumnType("nvarchar(max)");
+                    b.HasOne("Flight.Airport.Models.Airport", null)
+                        .WithMany()
+                        .HasForeignKey("ArriveAirportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                            b1.Property<string>("Name")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("FlightId");
-
-                            b1.ToTable("Flight", "dbo");
-
-                            b1.WithOwner()
-                                .HasForeignKey("FlightId");
-                        });
-
-                    b.OwnsOne("Flight.Flight.Models.ValueObjects.Airport", "DepartureAirport", b1 =>
-                        {
-                            b1.Property<long>("FlightId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("Code")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("FlightId");
-
-                            b1.ToTable("Flight", "dbo");
-
-                            b1.WithOwner()
-                                .HasForeignKey("FlightId");
-                        });
-
-                    b.OwnsOne("Flight.Flight.Models.ValueObjects.Aircraft", "Aircraft", b1 =>
-                        {
-                            b1.Property<long>("FlightId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("Model")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("FlightId");
-
-                            b1.ToTable("Flight", "dbo");
-
-                            b1.WithOwner()
-                                .HasForeignKey("FlightId");
-                        });
-
-                    b.Navigation("Aircraft");
-
-                    b.Navigation("ArriveAirport");
-
-                    b.Navigation("DepartureAirport");
+            modelBuilder.Entity("Flight.Flight.Models.Seat", b =>
+                {
+                    b.HasOne("Flight.Flight.Models.Flight", null)
+                        .WithMany()
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

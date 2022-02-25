@@ -12,7 +12,7 @@ using Reservation.Data;
 namespace Reservation.Data.Migrations
 {
     [DbContext(typeof(ReservationDbContext))]
-    [Migration("20220211183401_initial")]
+    [Migration("20220225134512_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Reservation.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Reservation.Models.Reservation", b =>
+            modelBuilder.Entity("Reservation.Reservation.Models.Reservation", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -40,40 +40,9 @@ namespace Reservation.Data.Migrations
                     b.ToTable("Reservation", "dbo");
                 });
 
-            modelBuilder.Entity("Reservation.Models.Reservation", b =>
+            modelBuilder.Entity("Reservation.Reservation.Models.Reservation", b =>
                 {
-                    b.OwnsOne("Reservation.Models.ValueObjects.Journey", "Journey", b1 =>
-                        {
-                            b1.Property<long>("ReservationId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<long>("ArriveAirportId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<DateTime>("ArriveDate")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<long>("DepartureAirportId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<DateTime>("DepartureDate")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<string>("Description")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<long>("FlightId")
-                                .HasColumnType("bigint");
-
-                            b1.HasKey("ReservationId");
-
-                            b1.ToTable("Reservation", "dbo");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ReservationId");
-                        });
-
-                    b.OwnsOne("Reservation.Models.ValueObjects.PassengerInfo", "PassengerInfo", b1 =>
+                    b.OwnsOne("Reservation.Reservation.Models.ValueObjects.PassengerInfo", "PassengerInfo", b1 =>
                         {
                             b1.Property<long>("ReservationId")
                                 .HasColumnType("bigint");
@@ -81,8 +50,42 @@ namespace Reservation.Data.Migrations
                             b1.Property<string>("Name")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<long>("PassengerId")
+                            b1.HasKey("ReservationId");
+
+                            b1.ToTable("Reservation", "dbo");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ReservationId");
+                        });
+
+                    b.OwnsOne("Reservation.Reservation.Models.ValueObjects.Trip", "Trip", b1 =>
+                        {
+                            b1.Property<long>("ReservationId")
                                 .HasColumnType("bigint");
+
+                            b1.Property<long>("AircraftId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<long>("ArriveAirportId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<long>("DepartureAirportId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("Description")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<DateTime>("FlightDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("FlightNumber")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<decimal>("Price")
+                                .HasColumnType("decimal(18,2)");
+
+                            b1.Property<string>("SeatNumber")
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("ReservationId");
 
@@ -92,9 +95,9 @@ namespace Reservation.Data.Migrations
                                 .HasForeignKey("ReservationId");
                         });
 
-                    b.Navigation("Journey");
-
                     b.Navigation("PassengerInfo");
+
+                    b.Navigation("Trip");
                 });
 #pragma warning restore 612, 618
         }

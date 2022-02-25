@@ -3,6 +3,7 @@ using MapsterMapper;
 using MediatR;
 using Reservation.Data;
 using Reservation.Flight.Clients;
+using Reservation.Flight.Dtos;
 using Reservation.Flight.Exceptions;
 using Reservation.Passenger.Clients;
 using Reservation.Reservation.Dtos;
@@ -43,8 +44,12 @@ public class CreateReservationCommandHandler : IRequestHandler<CreateReservation
         if (passenger is null)
             throw new PassengerNotFoundException();
 
-        var reservationEntity = Models.Reservation.Create(new PassengerInfo(passenger.Id, passenger.Name), new Trip(
-            command.FlightId, flight.DepartureAirportId, flight.FlightDate, flight.ArriveAirportId, command.Description));
+        var emptySeat = (await _flightServiceClient.GetAvailableSeats(command.FlightId))?.First();
+
+        var reservationEntity = Models.Reservation.Create(new PassengerInfo(passenger.Name), new Trip(flight.FlightNumber, flight.AircraftId, flight.DepartureAirportId,
+            flight.ArriveAirportId, flight.FlightDate, flight.Price, command.Description, emptySeat?.SeatNumber));
+
+        await _flightServiceClient.ReserveSeat(new ReserveSeatRequestDto(flight.Id, emptySeat?.SeatNumber));
 
         var newReservation = await _reservationDbContext.Reservations.AddAsync(reservationEntity, cancellationToken);
 

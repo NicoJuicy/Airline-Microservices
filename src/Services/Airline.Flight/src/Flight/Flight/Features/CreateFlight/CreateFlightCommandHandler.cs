@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using BuildingBlocks.Domain;
+using Flight.Aircraft.Exceptions;
 using Flight.Data;
 using Flight.Flight.Dtos;
 using Flight.Flight.Exceptions;
@@ -32,8 +34,8 @@ public class CreateFlightCommandHandler : IRequestHandler<CreateFlightCommand, F
         if (flight is not null)
             throw new FlightAlreadyExistException();
 
-        var flightEntity = Models.Flight.Create(command.FlightNumber, command.Aircraft, command.DepartureAirport, command.DepartureDate,
-            command.ArriveDate, command.ArriveAirport, command.DurationMinutes, command.FlightDate, FlightStatus.Completed, command.Price);
+        var flightEntity = Models.Flight.Create(command.FlightNumber, command.AircraftId, command.DepartureAirportId, command.DepartureDate,
+            command.ArriveDate, command.ArriveAirportId, command.DurationMinutes, command.FlightDate, FlightStatus.Completed, command.Price, true);
 
         var newFlight = await _flightDbContext.Flights.AddAsync(flightEntity, cancellationToken);
 

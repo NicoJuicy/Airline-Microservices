@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Flight.Flight.Dtos;
 using Flight.Flight.Models;
 using MediatR;
 
 namespace Flight.Flight.Features.CreateFlight;
 
-public record CreateFlightCommand(string FlightNumber, Models.ValueObjects.Aircraft Aircraft, Models.ValueObjects.Airport DepartureAirport,
-    DateTime DepartureDate, DateTime ArriveDate, Models.ValueObjects.Airport ArriveAirport,
-    decimal DurationMinutes, DateTime FlightDate, FlightStatus Status, decimal Price) : IRequest<FlightResponseDto>;
+public record CreateFlightCommand(string FlightNumber, long AircraftId, long DepartureAirportId,
+    DateTime DepartureDate, DateTime ArriveDate, long ArriveAirportId,
+    decimal DurationMinutes, DateTime FlightDate, FlightStatus Status, decimal Price, IList<Seat> Seats) : IRequest<FlightResponseDto>;

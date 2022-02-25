@@ -7,7 +7,7 @@ using Passenger.Passenger.Dtos;
 
 namespace Passenger.Passenger.Features.GetPassengerById;
 
-public class GetPassengerQueryByIdHandler: IRequestHandler<GetPassengerQueryById, PassengerResponseDto>
+public class GetPassengerQueryByIdHandler : IRequestHandler<GetPassengerQueryById, PassengerResponseDto>
 {
     private readonly PassengerDbContext _passengerDbContext;
     private readonly IMapper _mapper;
@@ -20,7 +20,11 @@ public class GetPassengerQueryByIdHandler: IRequestHandler<GetPassengerQueryById
 
     public async Task<PassengerResponseDto> Handle(GetPassengerQueryById query, CancellationToken cancellationToken)
     {
-        var passenger = await _passengerDbContext.Passengers.SingleOrDefaultAsync(x=>x.Id == query.Id, cancellationToken);
+        var passenger =
+            await _passengerDbContext.Passengers.SingleOrDefaultAsync(x => x.Id == query.Id, cancellationToken);
+
+        if (passenger is null)
+            return new PassengerResponseDto();
 
         return _mapper.Map<PassengerResponseDto>(passenger);
     }

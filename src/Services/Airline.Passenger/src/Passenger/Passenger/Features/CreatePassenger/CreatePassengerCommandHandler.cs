@@ -1,5 +1,5 @@
-using AutoMapper;
 using BuildingBlocks.Domain;
+using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Passenger.Data;
@@ -8,13 +8,14 @@ using Passenger.Passenger.Exceptions;
 
 namespace Passenger.Passenger.Features.CreatePassenger;
 
-public class CreatePassengerCommandHandler: IRequestHandler<CreatePassengerCommand, PassengerResponseDto>
+public class CreatePassengerCommandHandler : IRequestHandler<CreatePassengerCommand, PassengerResponseDto>
 {
     private readonly IEventProcessor _eventProcessor;
     private readonly IMapper _mapper;
     private readonly PassengerDbContext _passengerDbContext;
 
-    public CreatePassengerCommandHandler(IEventProcessor eventProcessor, IMapper mapper, PassengerDbContext passengerDbContext)
+    public CreatePassengerCommandHandler(IEventProcessor eventProcessor, IMapper mapper,
+        PassengerDbContext passengerDbContext)
     {
         _eventProcessor = eventProcessor;
         _mapper = mapper;
@@ -23,7 +24,8 @@ public class CreatePassengerCommandHandler: IRequestHandler<CreatePassengerComma
 
     public async Task<PassengerResponseDto> Handle(CreatePassengerCommand command, CancellationToken cancellationToken)
     {
-        var flight = await _passengerDbContext.Passengers.SingleOrDefaultAsync(x => x.PassportNumber == command.PassportNumber,
+        var flight = await _passengerDbContext.Passengers.SingleOrDefaultAsync(
+            x => x.PassportNumber == command.PassportNumber,
             cancellationToken);
 
         if (flight is not null)
@@ -33,7 +35,7 @@ public class CreatePassengerCommandHandler: IRequestHandler<CreatePassengerComma
 
         var newPassenger = await _passengerDbContext.Passengers.AddAsync(passengerEntity, cancellationToken);
 
-        await _eventProcessor.ProcessAsync(newPassenger.Entity.Events);
+        await _eventProcessor.ProcessAsync(newPassenger.Entity.Events, cancellationToken);
 
         await _passengerDbContext.SaveChangesAsync(cancellationToken);
 

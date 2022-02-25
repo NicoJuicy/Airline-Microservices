@@ -10,12 +10,12 @@ public class Aircraft : BaseAggregateRoot<long>
     {
     }
 
-    public static Aircraft Create(string name, string model, int manufacturingYear, IList<ValueObjects.Seat> seats = null, long? id = null)
+    public static Aircraft Create(string name, string model, int manufacturingYear, long? id = null)
     {
         var aircraft = new Aircraft
         {
             Id = id ?? SnowFlakIdGenerator.NewId(),
-            Name = name, Model = model, ManufacturingYear = manufacturingYear, Seats = seats
+            Name = name, Model = model, ManufacturingYear = manufacturingYear
         };
         return aircraft;
     }
@@ -23,5 +23,4 @@ public class Aircraft : BaseAggregateRoot<long>
     public string Name { get; private set; }
     public string Model { get; private set; }
     public int ManufacturingYear { get; private set; }
-    public IEnumerable<ValueObjects.Seat> Seats { get; private set; }
 }

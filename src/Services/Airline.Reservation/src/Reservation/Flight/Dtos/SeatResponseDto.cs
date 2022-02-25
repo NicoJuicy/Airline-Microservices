@@ -1,7 +1,6 @@
-using Flight.Aircraft.Models;
-using Flight.Aircraft.Models.ValueObjects;
+using Reservation.Flight.Models;
 
-namespace Flight.Seat.Dtos;
+namespace Reservation.Flight.Dtos;
 
 public record SeatResponseDto
 {
@@ -9,4 +8,5 @@ public record SeatResponseDto
     public string SeatNumber { get; init; }
     public SeatType Type { get; init; }
     public SeatClass Class { get; init; }
+    public long FlightId { get; init; }
 }

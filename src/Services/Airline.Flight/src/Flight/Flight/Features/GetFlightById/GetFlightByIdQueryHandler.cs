@@ -21,7 +21,11 @@ public class GetFlightByIdQueryHandler : IRequestHandler<GetFlightByIdQuery, Fli
 
     public async Task<FlightResponseDto> Handle(GetFlightByIdQuery query, CancellationToken cancellationToken)
     {
-        var flight = await _flightDbContext.Flights.SingleOrDefaultAsync(x => x.Id == query.Id, cancellationToken);
+        var flight =
+            await _flightDbContext.Flights.SingleOrDefaultAsync(x => x.Id == query.Id && !x.IsDeleted, cancellationToken);
+
+        if (flight is null)
+            return new FlightResponseDto();
 
         return _mapper.Map<FlightResponseDto>(flight);
     }

@@ -2,9 +2,9 @@ using BuildingBlocks.Exception;
 
 namespace Flight.Flight.Exceptions;
 
-public class AircraftAlreadyExistException : ConflictException
+public class FlightAlreadyExistException : ConflictException
 {
-    public AircraftAlreadyExistException(string code = default) : base("Aircraft already exist!", code)
+    public FlightAlreadyExistException(string code = default) : base("Flight already exist!", code)
     {
     }
 }
