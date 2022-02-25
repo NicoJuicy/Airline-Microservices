@@ -106,7 +106,7 @@ With using CQRS pattern, we cut each business functionality into some vertical s
 
 
 
-## :bicyclist: How to Run
+## :running: How to Run
 
 ### Docker Compose
 
@@ -137,7 +137,7 @@ If you like my work, feel free to:
 
 Thanks a bunch for supporting me!
 
-## Contribution
+## :octocat: Contribution
 
 Contributions are always welcome! Please take a look at the [contribution guidelines](https://github.com/meysamhadeli/Airline-Microservices/blob/master/contributing.md) pages first.
 
