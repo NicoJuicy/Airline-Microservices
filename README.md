@@ -2,7 +2,7 @@
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/meysamhadeli/Airline-Microservices)
 # :airplane: Airline-Microservices
 
-Airline Microservice is a simple Airline application that has the basic business scenario for online reserving flight ticket. Airlines provide transport services for their passengers. All operations of an airline company are controlled by their airline management system.
+`Airline Microservice` is a simple Airline application that has the basic business scenario for `online reserving flight ticket`. Airlines provide transport services for their passengers. All operations of an airline company are controlled by their airline management system.
 
 
 # :memo: Table of Contents
@@ -67,8 +67,6 @@ High-level plan is represented in the table
 
 
 ## :high_brightness: The Domain And Bounded Context - Service Boundary
-
-`Airline Microservices` is a simple Airline application that has the basic business scenario for online reserving flight ticket. There are four `Bounded context` or `Service` for our business:
 
 - `Identity Service`: The Identity Service is a bounded context for authenticate and authorize users through with [Identity Server](https://github.com/DuendeSoftware/IdentityServer). Also, this service is responsible for creating users and their corresponding roles and permission with using [.Net Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity) and Jwt authentication and authorization.
 
