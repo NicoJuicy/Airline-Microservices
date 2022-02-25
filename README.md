@@ -15,7 +15,7 @@ Airline Microservice is a simple Airline application that has the basic business
 - [How to Run](#how-to-run)
   - [Docker Compose](#docker-compose)
   - [Kubernetes](#kubernetes)
-- [Support](#suport)
+- [Support](#support)
 - [Contribution](#contribution)
 
 ## The Goals of This Project
@@ -45,7 +45,7 @@ High-level plan is represented in the table
 | Reservation Service |  In Progress ✔️ |
 
 
-## Technologies - Libraries
+:heart: ## Technologies - Libraries
 - ✔️ **[`.NET Core 6`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
 - ✔️ **[`MVC Versioning API`](https://github.com/microsoft/aspnet-api-versioning)** - Set of libraries which add service API versioning to ASP.NET Web API, OData with ASP.NET Web API, and ASP.NET Core
 - ✔️ **[`EF Core`](https://github.com/dotnet/efcore)** - Modern object-database mapper for .NET. It supports LINQ queries, change tracking, updates, and schema migrations
