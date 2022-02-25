@@ -1,12 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BuildingBlocks.Web;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Flight.Flight.Features.GetAvailableSeats;
+namespace Flight.Seat.Features.GetAvailableSeats;
 
 [Route(BaseApiPath + "/flight/get-available-seats")]
 public class GetAvailableSeatsEndpoint : BaseController

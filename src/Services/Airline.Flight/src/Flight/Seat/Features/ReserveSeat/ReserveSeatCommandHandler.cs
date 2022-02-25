@@ -2,13 +2,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using BuildingBlocks.Domain;
 using Flight.Data;
-using Flight.Flight.Dtos;
 using Flight.Flight.Exceptions;
+using Flight.Seat.Dtos;
+using Flight.Seat.Exceptions;
 using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Flight.Flight.Features.ReserveSeat;
+namespace Flight.Seat.Features.ReserveSeat;
 
 public class ReserveSeatCommandHandler : IRequestHandler<ReserveSeatCommand, SeatResponseDto>
 {

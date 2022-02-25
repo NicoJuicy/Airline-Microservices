@@ -3,13 +3,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Flight.Data;
-using Flight.Flight.Dtos;
+using Flight.Seat.Dtos;
 using MapsterMapper;
-using MassTransit.Initializers;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Flight.Flight.Features.GetAvailableSeats;
+namespace Flight.Seat.Features.GetAvailableSeats;
 
 public class GetAvailableSeatsQueryHandler : IRequestHandler<GetAvailableSeatsQuery, IEnumerable<SeatResponseDto>>
 {

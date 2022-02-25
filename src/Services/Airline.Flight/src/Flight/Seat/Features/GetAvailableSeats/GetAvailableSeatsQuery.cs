@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Flight.Flight.Dtos;
+using Flight.Seat.Dtos;
 using MediatR;
 
-namespace Flight.Flight.Features.GetAvailableSeats;
+namespace Flight.Seat.Features.GetAvailableSeats;
 
 public record GetAvailableSeatsQuery(long FlightId) : IRequest<IEnumerable<SeatResponseDto>>;

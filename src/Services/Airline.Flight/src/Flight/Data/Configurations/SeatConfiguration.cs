@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Flight.Data.Configurations;
 
-public class SeatConfiguration : IEntityTypeConfiguration<Seat>
+public class SeatConfiguration : IEntityTypeConfiguration<Flight.Models.Seat>
 {
-    public void Configure(EntityTypeBuilder<Seat> builder)
+    public void Configure(EntityTypeBuilder<Flight.Models.Seat> builder)
     {
         builder.ToTable("Seat", "dbo");
 

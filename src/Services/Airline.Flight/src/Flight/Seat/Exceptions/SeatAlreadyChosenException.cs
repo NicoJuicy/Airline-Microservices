@@ -1,6 +1,6 @@
 using BuildingBlocks.Exception;
 
-namespace Flight.Flight.Exceptions;
+namespace Flight.Seat.Exceptions;
 
 public class SeatAlreadyChosenException : ConflictException
 {

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Flight.Flight.Features.GetAvailableSeats;
+namespace Flight.Seat.Features.GetAvailableSeats;
 
 public class GetAvailableSeatsQueryValidator : AbstractValidator<GetAvailableSeatsQuery>
 {

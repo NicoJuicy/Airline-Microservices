@@ -1,6 +1,6 @@
 using Flight.Flight.Models;
 
-namespace Flight.Flight.Dtos;
+namespace Flight.Seat.Dtos;
 
 public record SeatResponseDto
 {

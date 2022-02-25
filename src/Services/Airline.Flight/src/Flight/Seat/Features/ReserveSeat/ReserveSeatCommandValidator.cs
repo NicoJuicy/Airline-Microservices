@@ -1,7 +1,6 @@
-using Flight.Flight.Models;
 using FluentValidation;
 
-namespace Flight.Flight.Features.ReserveSeat;
+namespace Flight.Seat.Features.ReserveSeat;
 
 public class ReserveSeatCommandValidator : AbstractValidator<ReserveSeatCommand>
 {

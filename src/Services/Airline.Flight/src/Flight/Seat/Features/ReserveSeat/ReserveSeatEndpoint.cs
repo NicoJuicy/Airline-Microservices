@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Flight.Flight.Features.ReserveSeat;
+namespace Flight.Seat.Features.ReserveSeat;
 
 [Route(BaseApiPath + "/flight/reserve-seat")]
 public class ReserveSeatEndpoint : BaseController

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BuildingBlocks.Persistence;
-using Flight.Aircraft.Models;
 using Flight.Flight.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -61,14 +60,14 @@ public class FlightDataSeeder : IDataSeeder
     {
         if (!await _flightDbContext.Seats.AnyAsync())
         {
-            var seats = new List<Seat>
+            var seats = new List<Flight.Models.Seat>
             {
-                Seat.Create("12A", SeatType.Window, SeatClass.Economy, 1, 1),
-                Seat.Create("12B", SeatType.Window, SeatClass.Economy, 1, 2),
-                Seat.Create("12C", SeatType.Middle, SeatClass.Economy, 1, 3),
-                Seat.Create("12D", SeatType.Middle, SeatClass.Economy, 1, 4),
-                Seat.Create("12E", SeatType.Aisle, SeatClass.Economy, 1, 5),
-                Seat.Create("12F", SeatType.Aisle, SeatClass.Economy, 1, 6),
+                Flight.Models.Seat.Create("12A", SeatType.Window, SeatClass.Economy, 1, 1),
+                Flight.Models.Seat.Create("12B", SeatType.Window, SeatClass.Economy, 1, 2),
+                Flight.Models.Seat.Create("12C", SeatType.Middle, SeatClass.Economy, 1, 3),
+                Flight.Models.Seat.Create("12D", SeatType.Middle, SeatClass.Economy, 1, 4),
+                Flight.Models.Seat.Create("12E", SeatType.Aisle, SeatClass.Economy, 1, 5),
+                Flight.Models.Seat.Create("12F", SeatType.Aisle, SeatClass.Economy, 1, 6)
             };
 
             await _flightDbContext.Seats.AddRangeAsync(seats);
@@ -82,7 +81,8 @@ public class FlightDataSeeder : IDataSeeder
         {
             var flights = new List<Flight.Models.Flight>
             {
-                Flight.Models.Flight.Create("BD467", 1, 1, new DateTime(2022, 1, 31, 12, 0, 0), new DateTime(2022, 1, 31, 14, 0, 0),
+                Flight.Models.Flight.Create("BD467", 1, 1, new DateTime(2022, 1, 31, 12, 0, 0),
+                    new DateTime(2022, 1, 31, 14, 0, 0),
                     2, 120m,
                     new DateTime(2022, 1, 31), FlightStatus.Completed,
                     8000, true, 1)

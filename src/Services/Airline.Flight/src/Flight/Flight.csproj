@@ -21,6 +21,8 @@
     <Folder Include="Airport\Events" />
     <Folder Include="Airport\Exceptions" />
     <Folder Include="Data\Migrations" />
+    <Folder Include="Seat\Events" />
+    <Folder Include="Seat\Models" />
   </ItemGroup>
 
 </Project>
