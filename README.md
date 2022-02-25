@@ -4,7 +4,7 @@
 
 Airline Microservice is a simple Airline application that has the basic business scenario for online reserving flight ticket. Airlines provide transport services for their passengers. All operations of an airline company are controlled by their airline management system.
 
-# Table of Contents
+# :memo: Table of Contents
 
 - [The Goals of This Project](#the-goals-of-this-project)
 - [Plan](#plan)
