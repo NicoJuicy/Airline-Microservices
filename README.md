@@ -4,6 +4,7 @@
 
 Airline Microservice is a simple Airline application that has the basic business scenario for online reserving flight ticket. Airlines provide transport services for their passengers. All operations of an airline company are controlled by their airline management system.
 
+
 # :memo: Table of Contents
 
 - [The Goals of This Project](#the-goals-of-this-project)
@@ -17,6 +18,7 @@ Airline Microservice is a simple Airline application that has the basic business
   - [Kubernetes](#kubernetes)
 - [Support](#support)
 - [Contribution](#contribution)
+- 
 
 ## :rocket: The Goals of This Project
 
@@ -27,6 +29,7 @@ Airline Microservice is a simple Airline application that has the basic business
 - Using [Inbox Pattern](https://event-driven.io/en/outbox_inbox_patterns_and_delivery_guarantees_explained/) for guaranty message [Idempotency](https://www.enterpriseintegrationpatterns.com/patterns/messaging/IdempotentReceiver.html) for receiver microservice and [Exactly-once Delivery](https://www.cloudcomputingpatterns.org/exactly_once_delivery/) pattern and using [Outbox Pattern](https://event-driven.io/en/outbox_inbox_patterns_and_delivery_guarantees_explained/) for ensuring about any message lost and [At-Least one Delivery](https://www.cloudcomputingpatterns.org/at_least_once_delivery/) rule.
 - Using `Best Practice` and `New Technologies` and `Design Patterns`.
 - Using Docker-Compose and Kubernetes for our deployment mechanism.
+- 
 
 ## :dart: Plan
 > This project is in progress, New features will be added over time.
@@ -43,6 +46,7 @@ High-level plan is represented in the table
 | Flight Service | Completed ✔️ |
 | Passenger Service | Completed ✔️ |
 | Reservation Service |  In Progress ✔️ |
+
 
 
 ## :heart: Technologies - Libraries
@@ -77,6 +81,7 @@ High-level plan is represented in the table
 - `Reservation Service`: The Passenger Service is a bounded context for managing all operation related to reserve flight ticket.
 
 
+
 ## :hammer: Structure of Project
 
 I used a [mediator pattern](https://dotnetcoretutorials.com/2019/04/30/the-mediator-pattern-in-net-core-part-1-whats-a-mediator/) with using [MediatR](https://github.com/jbogard/MediatR) library in my controllers for a clean and [thin controller](https://codeopinion.com/thin-controllers-cqrs-mediatr/), also instead of using a `application service` class because after some times our controller will depends to different services and this breaks single responsibility principle. We use mediator pattern to manage the delivery of messages to handlers. One of the advantages behind the [mediator pattern](https://lostechies.com/jimmybogard/2014/09/09/tackling-cross-cutting-concerns-with-a-mediator-pipeline/) is that it allows the application code to define a pipeline of activities for requests . For example in our controllers we create a command and send it to mediator and mediator will route our command to a specific command handler in application layer.
@@ -100,6 +105,7 @@ With this approach, each of our vertical slices can decide for itself how to bes
 ![](./assets/Vertical-Slice-Architecture.jpg)
 
 With using CQRS pattern, we cut each business functionality into some vertical slices, and inner each of this slices we have [technical folders structure](http://www.kamilgrzybek.com/design/feature-folders) specific to that feature (command, handlers, infrastructure, repository, controllers, ...). In Our CQRS pattern each command/query handler is a separate slice. This is where you can reduce coupling between layers. Each handler can be a separated code unit, even copy/pasted. Thanks to that, we can tune down the specific method to not follow general conventions (e.g. use custom SQL query or even different storage). In a traditional layered architecture, when we change the core generic mechanism in one layer, it can impact all methods.
+
 
 
 ## :bicyclist: How to Run
