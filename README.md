@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/meysamhadeli/Airline-Microservices)
-:airplane: # Airline-Microservices
+# Airline-Microservices
 
 Airline Microservice is a simple Airline application that has the basic business scenario for online reserving flight ticket. Airlines provide transport services for their passengers. All operations of an airline company are controlled by their airline management system.
 
