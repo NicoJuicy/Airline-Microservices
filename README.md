@@ -24,7 +24,7 @@
 - The microservices base on `Domain Driven Design (DDD)` implementation.
 - Correct separation of bounded contexts for each microservice.
 - Communications between bounded contexts through asynchronous `MessageBus` and `events`.
-- Simple `CQRS` implementation and `Event Driven Architecture` with using SqlServer for `Write Side` and MongoDB and Elastic Search for `Read Side`. For syncing Read Side and Write Side I will use [EventStore Projections](https://developers.eventstore.com/server/v5/projections.html#introduction-to-projections). we could also sync our Read and Write models with passing some integration event between services for achieving eventually consistency.
+- Simple `CQRS` implementation and event driven architecture.
 - Using [Inbox Pattern](https://event-driven.io/en/outbox_inbox_patterns_and_delivery_guarantees_explained/) for guaranty message [Idempotency](https://www.enterpriseintegrationpatterns.com/patterns/messaging/IdempotentReceiver.html) for receiver microservice and [Exactly-once Delivery](https://www.cloudcomputingpatterns.org/exactly_once_delivery/) pattern and using [Outbox Pattern](https://event-driven.io/en/outbox_inbox_patterns_and_delivery_guarantees_explained/) for ensuring about any message lost and [At-Least one Delivery](https://www.cloudcomputingpatterns.org/at_least_once_delivery/) rule.
 - Using `Best Practice` and `New Technologies` and `Design Patterns`.
 - Using Docker-Compose and Kubernetes for our deployment mechanism. 
@@ -47,7 +47,7 @@ High-level plan is represented in the table
 
 
 ## :heart: Technologies - Libraries
-- ✔️ **[`.NET Core 6`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
+- ✔️ **[`.NET 6`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
 - ✔️ **[`MVC Versioning API`](https://github.com/microsoft/aspnet-api-versioning)** - Set of libraries which add service API versioning to ASP.NET Web API, OData with ASP.NET Web API, and ASP.NET Core
 - ✔️ **[`EF Core`](https://github.com/dotnet/efcore)** - Modern object-database mapper for .NET. It supports LINQ queries, change tracking, updates, and schema migrations
 - ✔️ **[`Masstransit`](https://github.com/MassTransit/MassTransit)** - Distributed Application Framework for .NET.
