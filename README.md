@@ -38,7 +38,6 @@ High-level plan is represented in the table
 
 | Feature | Status |
 | ------- | ------ |
-| Building Blocks | Completed ✔️ |
 | API Gateway | Completed ✔️ |
 | Identity Service | Completed ✔️ |
 | Flight Service | Completed ✔️ |
