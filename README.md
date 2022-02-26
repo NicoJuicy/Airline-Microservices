@@ -43,8 +43,8 @@ High-level plan is represented in the table
 | Identity Service | Completed ✔️ |
 | Flight Service | Completed ✔️ |
 | Passenger Service | Completed ✔️ |
-| Reservation Service |  In Progress ✔️ |
-
+| Reservation Service |  Completed ✔️ |
+| Building Blocks |  In Progress 👷‍♂️ |
 
 
 ## :heart: Technologies - Libraries
