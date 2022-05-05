@@ -24,9 +24,9 @@ public static class SnowFlakIdGenerator
         // Prepare options
         var options = new IdGeneratorOptions(structure, new DefaultTimeSource(epoch));
 
-        // Create an IdGenerator with it's generator-id set to 0, our custom epoch
+        // Create an IdGenerator with its generator-id set to our config service number, our custom epoch
         // and id-structure
-        _generator = new IdGenerator(0, options);
+        _generator = new IdGenerator(generatorId, options);
     }
 
     public static long NewId() => _generator.CreateId();
